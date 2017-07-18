@@ -1,0 +1,220 @@
+@charset "utf-8";
+
+body {
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    /*font-family: "Comic Sans MS", sans-serif;*/
+    margin: 0px;
+    font-weight: normal;
+}
+span {
+    font-size: 12px;
+}
+
+.pendente-atraso {
+    background-color: #f7d4d4 ;
+    /*color: black;*/
+    /*font-weight: bold;*/
+}
+
+.pendente-sem-atraso {
+    background-color: #c2f0c6 ;
+    /*color: black;*/
+    /*font-weight: bold;*/
+}
+
+.pago{
+    /*background-color: green;*/ 
+    color: #c2f0c6;
+}
+
+input, textarea {
+    text-transform: uppercase;
+}
+
+.titulo {
+    font-size: x-large; 
+    font-weight: 400; 
+    color: #0f1980;
+}
+
+.pagamento {
+    font-size: x-large; 
+    font-weight: 400; 
+    /*color: darkblue;*/
+}
+
+.columLeft {
+    text-align: left;
+}
+
+.columRight {
+    text-align: right;
+}
+
+
+.ui-growl {
+    position:absolute;
+    top:20px;
+    left:40%;
+}
+
+
+.ui-selectonelistbox .ui-selectlistbox-item, .ui-selectmanymenu .ui-selectlistbox-item, .ui-multiselectlistbox .ui-multiselectlistbox-item {
+    font-size: 12px !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+header {
+    padding: 5px 0px;
+    margin-bottom: 20px;
+    height: 30px;
+    background-color: #549278;
+    /*background: linear-gradient(#878717, burlywood, #e3e304);  Standard syntax */
+    /*background-color:  #545454;*/
+    color: #fff;
+    box-shadow: 0px 2px 2px #ccc;
+}/*
+
+*/header > div {
+    margin-left: 8px;
+}/*
+
+*/footer {
+    padding: 0px 8px;
+    margin-bottom: 10px;
+}/*
+
+*/#conteudo {
+    padding: 0px 8px;
+    margin-left: 0%;
+    margin-right: 0%;
+}
+
+/*input {
+    text-transform: uppercase;
+}*/
+
+/*
+h1 {
+    font-size: 24px;
+    font-weight: 500;
+    padding: 0px;
+    margin: 0px;
+}
+
+ Customiza TabView - início 
+*/.ui-tabs .ui-tabs-panel {
+    padding: 0.5em 0.2em !important;
+}/*
+
+*/.ui-tabs {
+    padding: 0px !important;
+}/*
+
+*/.ui-tabs .ui-tabs-nav {
+    margin: -1px !important;
+}/*
+
+*/
+.ui-tabs.ui-tabs-top > .ui-tabs-nav {
+    padding: 0px !important;
+}/*
+ Customiza TabView - fim 
+
+*/
+.rotulo {
+    /*text-align: right;*/
+    width: 150px;
+}
+
+.campo {
+    /*text-align: left;*/
+    /*width: 200px*/
+}
+
+/*Estilo alinhando para grid*/
+.label {
+    text-align: right;
+}
+.field {
+    font-weight: bold;
+}
+
+.menu-sistema {
+    border: 0px !important;
+    padding: 0px !important;
+    background: none !important;
+}
+
+.menu-sistema .ui-menu-parent > a .ui-menuitem-text, .menu-sistema > .ui-menu-list > .ui-menuitem > a > .ui-menuitem-text {
+    color: #ffffff !important;
+}
+
+
+.meumenu .ui-menu-child{
+    width: 250px !important;
+}/*
+
+*/
+.menu-sistema .ui-icon-triangle-1-s {
+    background: url(#{resource['imagens:seta-para-baixo.png']}) no-repeat;
+}
+
+/*
+
+/*other*/
+
+.ui-widget, .ui-state-default {
+    font-size: 12px !important;
+}
+.ui-layout-north {
+    z-index: 20 !important;
+    overflow: visible !important;;
+}
+.ui-layout-north .ui-layout-unit-content {
+    overflow: visible !important;
+}
+.ui-widget-header {
+    /*text-align: center;*/
+    /*text-transform: uppercase;*/
+}
+
+.negrito {
+    font-weight: bold;
+}
+.ui-datatable-data {
+    font-size: 13px !important;
+}
+.pendente {
+    /*background-color: crimson;*/
+    color: red;
+}
+
+.pago{
+    /*background-color: green;*/ 
+    color: green;
+}
+
+.ui-button {
+    height: 24px;
+}
+
+.email{
+    text-transform: lowercase;
+}
+
+.fundo {
+    -webkit-background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    overflow: hidden
+}
+
+.background {
+    background-color: background;
+}
+
+.ui-state-disabled {
+    opacity: .60 !important;
+}

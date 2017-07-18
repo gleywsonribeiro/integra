@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title><ui:insert name="titulo">SITI - Sistema Integrado de TI</ui:insert></title>
+        <h:outputStylesheet library="css" name="sistema.css"/>
+        <h:outputScript library="scripts" name="calendario.js"/>
+    </h:head>
+
+    <h:body>
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <center>
+                <h:outputText value="Processando..."/><br/>
+            </center>
+            <p:graphicImage library="imagens" name="gear.gif"/>
+        </p:dialog>
+        
+        <header>
+            <div style="float: left">
+                <h:link outcome="/index">
+                    <h:graphicImage library="imagens" name="home-icon.png" id="home"/>
+                    <p:tooltip value="Ir para início" for="home"/>
+                </h:link>
+                
+            </div>
+
+            <div style="float: right; margin-right: 110px">
+                <span style="float: left; height: 30px; line-height: 30px; margin-right: 60px">
+                    Olá #{loginController.usuario.nome}
+                </span>
+                <h:form style="display: inline-block">
+                    <ui:include src="menu.xhtml"/>
+                </h:form>
+            </div>
+            <div style="clear: both"/>
+        </header>
+        
+        <div id="conteudo">
+            <ui:insert name="corpo"/>
+        </div>
+
+        <p:separator style="margin-top: 20px;"/>
+        <footer>
+            &reg; HMUE TI - Todos os direitos reservados &copy;
+        </footer>
+    </h:body>
+
+</html>

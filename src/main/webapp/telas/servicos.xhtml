@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../WEB-INF/template/layout.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="titulo">
+        Monitor de Servicos
+    </ui:define>
+
+    <ui:define name="corpo">
+        <h:form>
+            <h:outputText value="Monitor de Ordem de Serviços Pendentes" styleClass="titulo"/>
+
+            <p:dataTable id="oss" value="#{osController.servicos}" scrollable="true" scrollHeight="600"
+                         var="os" style="margin-top: 20px;" emptyMessage="Não há registros." >
+                <p:column headerText="Código" style="text-align: center; width: 100px">
+                    <h:outputText value="#{os.os}"/>
+                </p:column>
+
+                <p:column headerText="Tempo Abertura">
+                    <h:outputText value="#{os.tempoAbertura}"/>
+                </p:column>
+
+                <p:column headerText="Data Pedido">
+                    <h:outputText value="#{os.dtPedido}"/>
+                </p:column>
+
+                <!--                <p:column headerText="Serviço">
+                                    <h:outputText value=""/>
+                                </p:column>-->
+
+                <p:column headerText="Nome">
+                    <h:outputText value="#{os.nome}"/>
+                </p:column>
+
+                <p:column headerText="Setor">
+                    <h:outputText value="#{os.setor}"/>
+                </p:column>
+
+                <p:column headerText="Localidade">
+                    <h:outputText value="#{os.localidade}"/>
+                </p:column>
+
+                <p:column headerText="Tipo OS">
+                    <h:outputText value="#{os.tpOs}"/>
+                </p:column>
+
+                <p:column headerText="Solicitante">
+                    <h:outputText value="#{os.usuario}"/>
+                </p:column>
+
+                <p:column headerText="Status">
+                    <h:outputText value="#{os.status}"/>
+                </p:column>
+
+                <p:column headerText="Responsável">
+                    <h:outputText value="#{os.tecResponsavel}"/>
+                </p:column>
+
+                <f:facet name="footer">
+                    <div align="left">
+                        <h:outputText value="Total Pendente: #{osController.servicos.size()}"/>
+                    </div>
+                </f:facet>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

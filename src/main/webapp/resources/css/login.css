@@ -1,0 +1,13 @@
+
+@charset "utf-8";
+
+body {
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0px;
+    font-weight: normal;
+    background: #ccc;
+}
+.painel{
+    border-radius: 10px;
+}
