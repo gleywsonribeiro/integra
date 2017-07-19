@@ -50,6 +50,7 @@ public class OrdemServicoController {
         opcoes.put("modal", true);
         opcoes.put("resizable", false);
         opcoes.put("contentHeight", 300);
+        opcoes.put("contentWidth", 600);
 
         RequestContext.getCurrentInstance().openDialog("/telas/os/cadastro", opcoes, null);
     }
