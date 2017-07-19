@@ -12,60 +12,56 @@
 
     <ui:define name="corpo">
         <h:form>
-            <h:outputText value="Monitor de Ordem de Serviços Pendentes" styleClass="titulo"/>
+            <div class="ui-fluid">
+                <h:outputText value="Monitor de Ordem de Serviços Pendentes" styleClass="titulo"/>
 
-            <p:dataTable id="oss" value="#{osController.servicos}" scrollable="true" scrollHeight="600"
-                         var="os" style="margin-top: 20px;" emptyMessage="Não há registros." >
-                <p:column headerText="Código" style="text-align: center; width: 100px">
-                    <h:outputText value="#{os.os}"/>
-                </p:column>
+                <p:dataTable id="oss" value="#{osController.servicos}" scrollable="true" scrollHeight="600" reflow="true"
+                             var="os" style="margin-top: 20px;" emptyMessage="Não há registros." >
+                   
+                    <p:column headerText="Código" style="text-align: center; width: 100px;">
+                        <p:commandLink value="#{os.os}" action="#{osController.abrirView()}" process="@this">
+                            <f:setPropertyActionListener target="#{osController.os}" value="#{os}"/>
+                            <p:ajax event="dialogReturn" process="@this" update="@form"/>
+                        </p:commandLink>
+                    </p:column>
 
-                <p:column headerText="Tempo Abertura">
-                    <h:outputText value="#{os.tempoAbertura}"/>
-                </p:column>
+                    <p:column headerText="Tempo Abertura" >
+                        <h:outputText value="#{os.tempoAbertura}"/>
+                    </p:column>
 
-                <p:column headerText="Data Pedido">
-                    <h:outputText value="#{os.dtPedido}"/>
-                </p:column>
+                    <p:column headerText="Data Pedido" >
+                        <h:outputText value="#{os.dtPedido}" style="font-weight: bold; font-size: 11px">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                        </h:outputText>
+                    </p:column>
 
-                <!--                <p:column headerText="Serviço">
-                                    <h:outputText value=""/>
-                                </p:column>-->
+                    <p:column headerText="Nome">
+                        <h:outputText value="#{os.nome}"/>
+                    </p:column>
 
-                <p:column headerText="Nome">
-                    <h:outputText value="#{os.nome}"/>
-                </p:column>
+                    <p:column headerText="Setor">
+                        <h:outputText value="#{os.setor}"/>
+                    </p:column>
 
-                <p:column headerText="Setor">
-                    <h:outputText value="#{os.setor}"/>
-                </p:column>
+                    <p:column headerText="Localidade">
+                        <h:outputText value="#{os.localidade}"/>
+                    </p:column>
 
-                <p:column headerText="Localidade">
-                    <h:outputText value="#{os.localidade}"/>
-                </p:column>
+                    <p:column headerText="Status">
+                        <h:outputText value="#{os.status}"/>
+                    </p:column>
 
-                <p:column headerText="Tipo OS">
-                    <h:outputText value="#{os.tpOs}"/>
-                </p:column>
+                    <p:column headerText="Responsável">
+                        <h:outputText value="#{os.tecResponsavel}"/>
+                    </p:column>
 
-                <p:column headerText="Solicitante">
-                    <h:outputText value="#{os.usuario}"/>
-                </p:column>
-
-                <p:column headerText="Status">
-                    <h:outputText value="#{os.status}"/>
-                </p:column>
-
-                <p:column headerText="Responsável">
-                    <h:outputText value="#{os.tecResponsavel}"/>
-                </p:column>
-
-                <f:facet name="footer">
-                    <div align="left">
-                        <h:outputText value="Total Pendente: #{osController.servicos.size()}"/>
-                    </div>
-                </f:facet>
-            </p:dataTable>
+                    <f:facet name="footer">
+                        <div align="left">
+                            <h:outputText value="Total Pendente: #{osController.servicos.size()}"/>
+                        </div>
+                    </f:facet>
+                </p:dataTable>
+            </div>
         </h:form>
     </ui:define>
 

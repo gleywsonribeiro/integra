@@ -109,7 +109,8 @@ public class DAO {
                 
                 os.setOs(resultSet.getString("os"));
                 os.setTempoAbertura(resultSet.getString("tempo_abertura"));
-                os.setDtPedido(resultSet.getString("dt_pedido"));
+//                os.setDtPedido(resultSet.getString("dt_pedido"));
+                os.setDtPedido(resultSet.getTimestamp("dt_pedido"));
                 os.setServico(resultSet.getString("servico"));
                 os.setNome(resultSet.getString("nome"));
                 os.setSetor(resultSet.getString("setor"));

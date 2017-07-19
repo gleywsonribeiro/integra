@@ -5,10 +5,13 @@
  */
 package br.com.hmue.integra.factory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -42,6 +45,16 @@ public class OrdemServicoController {
         
     }
     
+    public void abrirView() {
+        Map<String, Object> opcoes = new HashMap<String, Object>();
+        opcoes.put("modal", true);
+        opcoes.put("resizable", false);
+        opcoes.put("contentHeight", 300);
+
+        RequestContext.getCurrentInstance().openDialog("/telas/os/cadastro", opcoes, null);
+    }
     
-    
+    public void fecharDialogo() {
+        RequestContext.getCurrentInstance().closeDialog(null);
+    }
 }

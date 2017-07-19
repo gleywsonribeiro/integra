@@ -5,12 +5,16 @@
  */
 package br.com.hmue.integra.factory;
 
+import java.util.Date;
+
 /**
  *
  * @author Gleywson
  */
 public class OrdemServico {
-    private String os, tempoAbertura, dtPedido, servico, nome, setor, localidade, tpOs, usuario, status, tecResponsavel;
+    private String os, tempoAbertura, servico, nome, setor, localidade, tpOs, usuario, status, tecResponsavel;
+    
+    private Date dtPedido;
 
     public String getOs() {
         return os;
@@ -28,11 +32,11 @@ public class OrdemServico {
         this.tempoAbertura = tempoAbertura;
     }
 
-    public String getDtPedido() {
+    public Date getDtPedido() {
         return dtPedido;
     }
 
-    public void setDtPedido(String dtPedido) {
+    public void setDtPedido(Date dtPedido) {
         this.dtPedido = dtPedido;
     }
 

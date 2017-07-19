@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Dialogo Marca</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="sistema.css"/>
+        <h:outputScript library="scripts" name="calendario.js"/>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <p:panel>
+                <h:panelGrid columns="4">
+                    <h:panelGrid>
+                        <p:outputLabel value="Codigo" for="cod"/>
+                        <p:inputText disabled="true" id="cod" value="#{osController.os.os}"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid>
+                        <p:outputLabel for="tempo" value="Tempo de Abertura"/>
+                        <p:inputText value="#{osController.os.tempoAbertura}" id="tempo" readonly="true"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid>
+                        <p:outputLabel for="dataPedido" value="Data de Abertura"/>
+                        <p:inputText value="#{osController.os.dtPedido}" id="dataPedido" readonly="true">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                        </p:inputText>
+                    </h:panelGrid>
+
+                    <h:panelGrid>
+                        <p:outputLabel for="nome" value="Solicitante"/>
+                        <p:inputText value="#{osController.os.nome}" id="nome" readonly="true"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid>
+                        <p:outputLabel for="setor" value="Setor"/>
+                        <p:inputText value="#{osController.os.setor}" id="setor" readonly="true"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid>
+                        <p:outputLabel for="localidade" value="Localidade"/>
+                        <p:inputText value="#{osController.os.localidade}" id="localidade" readonly="true"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <h:panelGrid>
+                    <p:outputLabel for="descricao" value="Descrição"/>
+                    <p:inputTextarea id="descricao" rows="4" cols="100" readonly="true" value="#{osController.os.servico}"/>
+                </h:panelGrid>
+                
+                <p:commandButton value="ok" action="#{osController.fecharDialogo()}" />
+            </p:panel>
+            
+        </h:form>
+    </h:body>
+</html>
