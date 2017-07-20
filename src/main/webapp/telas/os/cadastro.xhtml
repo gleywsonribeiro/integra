@@ -17,42 +17,42 @@
                     <p:panelGrid columns="4" styleClass="ui-panelgrid-blank">
                         <h:panelGrid>
                             <p:outputLabel value="Codigo" for="cod"/>
-                            <p:inputText disabled="true" id="cod" value="#{osController.os.os}"/>
+                            <p:inputText disabled="true" id="cod" value="#{exibeOsController.servico.os}"/>
                         </h:panelGrid>
 
                         <h:panelGrid>
                             <p:outputLabel for="tempo" value="Tempo de Abertura"/>
-                            <p:inputText value="#{osController.os.tempoAbertura}" id="tempo" readonly="true"/>
+                            <p:inputText value="#{exibeOsController.servico.tempoAbertura}" id="tempo" readonly="true"/>
                         </h:panelGrid>
 
                         <h:panelGrid>
                             <p:outputLabel for="dataPedido" value="Data de Abertura"/>
-                            <p:inputText value="#{osController.os.dtPedido}" id="dataPedido" readonly="true">
+                            <p:inputText value="#{exibeOsController.servico.dtPedido}" id="dataPedido" readonly="true">
                                 <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                             </p:inputText>
                         </h:panelGrid>
 
                         <h:panelGrid>
                             <p:outputLabel for="nome" value="Solicitante"/>
-                            <p:inputText value="#{osController.os.nome}" id="nome" readonly="true"/>
+                            <p:inputText value="#{exibeOsController.servico.nome}" id="nome" readonly="true"/>
                         </h:panelGrid>
 
                         <h:panelGrid>
                             <p:outputLabel for="setor" value="Setor"/>
-                            <p:inputText value="#{osController.os.setor}" id="setor" readonly="true"/>
+                            <p:inputText value="#{exibeOsController.servico.setor}" id="setor" readonly="true"/>
                         </h:panelGrid>
 
                         <h:panelGrid>
                             <p:outputLabel for="localidade" value="Localidade"/>
-                            <p:inputText value="#{osController.os.localidade}" id="localidade" readonly="true"/>
+                            <p:inputText value="#{exibeOsController.servico.localidade}" id="localidade" readonly="true"/>
                         </h:panelGrid>
                     </p:panelGrid>
                     <h:panelGrid>
                         <p:outputLabel for="descricao" value="Descrição"/>
-                        <p:inputTextarea id="descricao" rows="4" cols="100" readonly="true" value="#{osController.os.servico}"/>
+                        <p:inputTextarea id="descricao" rows="4" cols="100" readonly="true" value="#{exibeOsController.servico.servico}"/>
                     </h:panelGrid>
 
-                    <p:commandButton value="ok" action="#{osController.fecharDialogo()}" />
+                    <p:commandButton value="ok" action="#{exibeOsController.fecharDialogo()}" />
                 </p:panel>
             </div>
         </h:form>

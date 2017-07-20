@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.hmue.integra.factory;
+package br.com.hmue.integra.controller;
 
+import br.com.hmue.integra.modelo.DAO;
+import br.com.hmue.integra.modelo.OrdemServico;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.context.RequestContext;
@@ -18,8 +21,8 @@ import org.primefaces.context.RequestContext;
  * @author Gleywson
  */
 @Named(value = "osController")
-@RequestScoped
-public class OrdemServicoController {
+@ViewScoped
+public class OrdemServicoController implements Serializable{
 
     @Inject
     private DAO dao;
@@ -29,6 +32,7 @@ public class OrdemServicoController {
 
     public OrdemServicoController() {
         this.os = new OrdemServico();
+        os.setServico("Objeto inicializo ainda");
     }
 
     public OrdemServico getOs() {

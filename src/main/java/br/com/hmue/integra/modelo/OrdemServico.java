@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.hmue.integra.factory;
+package br.com.hmue.integra.modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Gleywson
  */
-public class OrdemServico {
+public class OrdemServico implements Serializable {
     private String os, tempoAbertura, servico, nome, setor, localidade, tpOs, usuario, status, tecResponsavel;
     
     private Date dtPedido;

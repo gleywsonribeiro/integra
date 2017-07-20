@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.hmue.integra.factory;
+package br.com.hmue.integra.modelo;
 
+import br.com.hmue.integra.factory.ConnectionFactory;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +18,7 @@ import java.util.List;
  *
  * @author Gleywson
  */
-public class DAO {
+public class DAO implements Serializable {
 
     public List<OrdemServico> getOSsPendentes() {
         String sql = "SELECT CD_OS OS,\n"

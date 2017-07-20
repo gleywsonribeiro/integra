@@ -20,7 +20,7 @@
                    
                     <p:column headerText="Código" style="text-align: center; width: 100px;">
                         <p:commandLink value="#{os.os}" action="#{osController.abrirView()}" process="@this">
-                            <f:setPropertyActionListener target="#{osController.os}" value="#{os}"/>
+                            <f:setPropertyActionListener target="#{exibeOsController.servico}" value="#{os}"/>
                             <!--<p:ajax event="dialogReturn" process="@this" update="@form"/>-->
                         </p:commandLink>
                     </p:column>
