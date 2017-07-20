@@ -21,7 +21,7 @@
             </center>
             <p:graphicImage library="imagens" name="gear.gif"/>
         </p:dialog>
-        
+
         <header>
             <div style="float: left; margin-right: 10px">
                 <h:link outcome="/index">
@@ -35,10 +35,10 @@
                     <p:tooltip value="Serviços" for="order"/>
                 </h:link>
             </div>
-            
+
             <div style="float: left; margin-right: 10px">
                 <h:link>
-                    <h:graphicImage library="imagens" name="tool.png" id="order"/>
+                    <h:graphicImage library="imagens" name="tool.png" id="tool"/>
                     <p:tooltip value="Tool" for="tool"/>
                 </h:link>
             </div>
@@ -47,14 +47,14 @@
                 <span style="float: left; height: 30px; line-height: 30px; margin-right: 60px">
                     Olá #{loginController.usuario.nome}
                 </span>
-                <p:commandLink action="#{loginController.logout()}" immediate="true">
+                <p:commandLink action="#{loginController.logout()}">
                     <h:graphicImage library="imagens" name="power.png" id="sair"/>
                     <p:tooltip value="Sair" for="sair"/>
                 </p:commandLink>
             </div>
             <div style="clear: both"/>
         </header>
-        
+
         <div id="conteudo">
             <ui:insert name="corpo"/>
         </div>

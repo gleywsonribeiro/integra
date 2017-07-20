@@ -5,9 +5,6 @@
  */
 package br.com.hmue.integra.controller;
 
-//import br.com.icone.martan.modelo.Usuario;
-//import br.com.icone.martan.modelo.repositorio.UsuarioFacade;
-//import br.com.icone.martan.util.jsf.JsfUtil;
 import br.com.hmue.integra.jsf.util.JsfUtil;
 import br.com.hmue.integra.modelo.Usuario;
 import java.io.IOException;
@@ -18,8 +15,6 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.persistence.NoResultException;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -62,6 +57,7 @@ public class LoginController implements Serializable {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
         httpSession.invalidate();
+//        JsfUtil.redirect("/index.xhtml");
     }
 
     public String saudacao() {

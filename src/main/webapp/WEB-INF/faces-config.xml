@@ -16,11 +16,11 @@
     </lifecycle>
     
     
-    <factory>
+<!--    <factory>
         <exception-handler-factory>
             br.com.hmue.integra.jsf.util.view.JsfExceptionHandlerFactory
         </exception-handler-factory>
-    </factory>
+    </factory>-->
     
     <application>
         <action-listener>org.primefaces.application.DialogActionListener</action-listener>
