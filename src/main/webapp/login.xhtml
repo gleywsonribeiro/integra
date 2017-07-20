@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Login</title>
+        <h:outputStylesheet library="css" name="login.css"/>
+    </h:head>
+    
+    <h:body style="background: url('resources/imagens/fundo.jpg') no-repeat !important;">
+        <p:dialog visible="true" closable="false" draggable="false" resizable="false" showHeader="false" styleClass="painel" showEffect="slide">
+            <h:form prependId="false">
+                <p:messages id="alerta" closable="true" />
+
+                <p:panelGrid>
+                    <f:facet name="header">  
+                        <p:row>  
+                            <p:column colspan="3">Controle de Acesso</p:column>  
+                        </p:row>  
+                    </f:facet>
+                    <p:row>
+                        <p:column rowspan="4"><h:graphicImage library="imagens" name="cadeado.png" width="100px" height="100px"/></p:column>
+                    </p:row>
+                    <p:row>
+                        <!--<p:column>Login:</p:column>-->
+                        <p:column>
+                            <p:inputText id="login" value="#{loginController.usuario.login}" required="true" requiredMessage="Informe seu login"/>
+                            <p:watermark for="login" value="Entre com seu login"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <!--<p:column>Senha:</p:column>-->
+                        <p:column>
+                            <p:password  id="senha" value="#{loginController.usuario.senha}" required="true" requiredMessage="Informe sua senha"/>
+                            <p:watermark for="senha" value="Senha"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:commandButton icon="ui-icon-key" value="login" action="#{loginController.login}" update="alerta" ajax="false"/>
+<!--                            <p:clock pattern="HH:mm:ss"/>-->
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+                <!--                <p:captcha label="captcha" language="pt" theme="white" validatorMessage="Captcha não corresponde" requiredMessage="Preencha o captcha"/>-->
+
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>
+
+
+
