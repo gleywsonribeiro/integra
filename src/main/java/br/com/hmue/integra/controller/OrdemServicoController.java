@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,7 +22,7 @@ import org.primefaces.context.RequestContext;
  * @author Gleywson
  */
 @Named(value = "osController")
-@ViewScoped
+@SessionScoped
 public class OrdemServicoController implements Serializable{
 
     @Inject
@@ -32,7 +33,6 @@ public class OrdemServicoController implements Serializable{
 
     public OrdemServicoController() {
         this.os = new OrdemServico();
-        os.setServico("Objeto inicializo ainda");
     }
 
     public OrdemServico getOs() {

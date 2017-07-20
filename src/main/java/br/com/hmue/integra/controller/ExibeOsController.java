@@ -7,6 +7,7 @@ package br.com.hmue.integra.controller;
 
 import br.com.hmue.integra.modelo.OrdemServico;
 import java.io.Serializable;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import org.primefaces.context.RequestContext;
@@ -16,7 +17,7 @@ import org.primefaces.context.RequestContext;
  * @author Gleywson
  */
 @Named(value = "exibeOsController")
-@ViewScoped
+@SessionScoped
 public class ExibeOsController implements Serializable {
     private OrdemServico servico;
     
@@ -34,5 +35,6 @@ public class ExibeOsController implements Serializable {
     
     public void fecharDialogo() {
         RequestContext.getCurrentInstance().closeDialog(null);
+        this.servico = new OrdemServico();
     }
 }
