@@ -23,21 +23,34 @@
         </p:dialog>
         
         <header>
-            <div style="float: left">
+            <div style="float: left; margin-right: 10px">
                 <h:link outcome="/index">
                     <h:graphicImage library="imagens" name="home-icon.png" id="home"/>
                     <p:tooltip value="Ir para início" for="home"/>
                 </h:link>
-                
+            </div>
+            <div style="float: left; margin-right: 10px">
+                <h:link outcome="/telas/servicos">
+                    <h:graphicImage library="imagens" name="order.png" id="order"/>
+                    <p:tooltip value="Serviços" for="order"/>
+                </h:link>
+            </div>
+            
+            <div style="float: left; margin-right: 10px">
+                <h:link>
+                    <h:graphicImage library="imagens" name="tool.png" id="order"/>
+                    <p:tooltip value="Tool" for="tool"/>
+                </h:link>
             </div>
 
-            <div style="float: right; margin-right: 110px">
+            <div style="float: right; margin-right: 50px">
                 <span style="float: left; height: 30px; line-height: 30px; margin-right: 60px">
                     Olá #{loginController.usuario.nome}
                 </span>
-                <h:form style="display: inline-block">
-                    <ui:include src="menu.xhtml"/>
-                </h:form>
+                <p:commandLink action="#{loginController.logout()}" immediate="true">
+                    <h:graphicImage library="imagens" name="power.png" id="sair"/>
+                    <p:tooltip value="Sair" for="sair"/>
+                </p:commandLink>
             </div>
             <div style="clear: both"/>
         </header>

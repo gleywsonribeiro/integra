@@ -5,11 +5,13 @@
  */
 package br.com.hmue.integra.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Gleywson
  */
-public class Usuario {
+public class Usuario implements Serializable {
 
     private String nome;
     private String login;
