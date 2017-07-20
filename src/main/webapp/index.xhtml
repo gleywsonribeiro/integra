@@ -7,9 +7,12 @@
     <ui:define name="titulo">
         SITI - Sistema Integrado de TI
     </ui:define>
-    
+
     <ui:define name="corpo">
-        <p:commandButton value="cadastrar"/>
+        <div style="margin-left: 50px">
+            <p>#{loginController.saudacao()}</p>
+            <p>Use o menu acima</p>
+        </div>
     </ui:define>
 
 </ui:composition>
