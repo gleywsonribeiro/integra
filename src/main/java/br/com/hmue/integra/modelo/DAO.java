@@ -33,6 +33,7 @@ public class DAO implements Serializable {
                 + "       NOME,\n"
                 + "       NM_SETOR SETOR,\n"
                 + "       DS_LOCALIDADE LOCALIDADE,\n"
+                + "       DS_RAMAL RAMAL,\n"
                 + "       DS_TIPO_OS TP_OS,\n"
                 + "       NM_USUARIO USUARIO,\n"
                 + "       STATUS,\n"
@@ -50,6 +51,7 @@ public class DAO implements Serializable {
                 + "                NOME,\n"
                 + "                NM_SETOR,\n"
                 + "                DS_LOCALIDADE,\n"
+                + "                DS_RAMAL,\n"
                 + "                NM_USUARIO,\n"
                 + "                RESP,\n"
                 + "                DECODE(TP_SITUACAO, 'S','SOLICITADA',\n"
@@ -73,6 +75,7 @@ public class DAO implements Serializable {
                 + "                                INSTR(OS.NM_SOLICITANTE, ' ') - 1) NOME,\n"
                 + "                         S.NM_SETOR,\n"
                 + "                         L.DS_LOCALIDADE,\n"
+                + "                         OS.DS_RAMAL,\n"
                 + "                         TPOS.DS_TIPO_OS,\n"
                 + "                         OS.NM_USUARIO,\n"
                 + "                         U.NM_USUARIO RESP,\n"
@@ -96,19 +99,18 @@ public class DAO implements Serializable {
         ResultSet resultSet = null;
 
         List<OrdemServico> lista = new ArrayList<OrdemServico>();
-        
+
         try {
             //Cria uma conexão com o banco
             connection = ConnectionFactory.createConnectionToOracle();
 
             //Cria um PreparedStatment, classe usada para executar a query
-            pstm = connection.prepareStatement(sql);            
+            pstm = connection.prepareStatement(sql);
             resultSet = pstm.executeQuery();
-            
-            
+
             while (resultSet.next()) {
                 OrdemServico os = new OrdemServico();
-                
+
                 os.setOs(resultSet.getString("os"));
                 os.setTempoAbertura(resultSet.getString("tempo_abertura"));
 //                os.setDtPedido(resultSet.getString("dt_pedido"));
@@ -117,14 +119,15 @@ public class DAO implements Serializable {
                 os.setNome(resultSet.getString("nome"));
                 os.setSetor(resultSet.getString("setor"));
                 os.setLocalidade(resultSet.getString("localidade"));
+                os.setRamal(resultSet.getString("ramal"));
                 os.setTpOs(resultSet.getString("tp_os"));
                 os.setUsuario(resultSet.getString("usuario"));
                 os.setStatus(resultSet.getString("status"));
                 os.setTecResponsavel(resultSet.getString("tec_responsavel"));
-                
+
                 lista.add(os);
             }
-            
+
             //Executa a sql para inserção dos dados
             pstm.execute();
 
@@ -143,8 +146,8 @@ public class DAO implements Serializable {
                 if (connection != null) {
                     connection.close();
                 }
-                
-                if(resultSet != null) {
+
+                if (resultSet != null) {
                     resultSet.close();
                 }
             } catch (SQLException e) {

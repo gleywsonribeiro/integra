@@ -13,7 +13,7 @@ import java.util.Date;
  * @author Gleywson
  */
 public class OrdemServico implements Serializable {
-    private String os, tempoAbertura, servico, nome, setor, localidade, tpOs, usuario, status, tecResponsavel;
+    private String os, tempoAbertura, servico, nome, setor, localidade, ramal, tpOs, usuario, status, tecResponsavel;
     
     private Date dtPedido;
 
@@ -103,6 +103,14 @@ public class OrdemServico implements Serializable {
 
     public void setTecResponsavel(String tecResponsavel) {
         this.tecResponsavel = tecResponsavel;
+    }
+
+    public String getRamal() {
+        return ramal;
+    }
+
+    public void setRamal(String ramal) {
+        this.ramal = ramal;
     }
 
     
