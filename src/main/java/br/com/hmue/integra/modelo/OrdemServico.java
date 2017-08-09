@@ -13,15 +13,15 @@ import java.util.Date;
  * @author Gleywson
  */
 public class OrdemServico implements Serializable {
-    private String os, tempoAbertura, servico, nome, setor, localidade, ramal, tpOs, usuario, status, tecResponsavel;
-    
+    private String tempoAbertura, servico, nome, setor, localidade, ramal, tpOs, usuario, status, tecResponsavel;
+    private int os;
     private Date dtPedido;
 
-    public String getOs() {
+    public int getOs() {
         return os;
     }
 
-    public void setOs(String os) {
+    public void setOs(int os) {
         this.os = os;
     }
 

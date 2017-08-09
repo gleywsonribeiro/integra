@@ -111,7 +111,7 @@ public class DAO implements Serializable {
             while (resultSet.next()) {
                 OrdemServico os = new OrdemServico();
 
-                os.setOs(resultSet.getString("os"));
+                os.setOs(resultSet.getInt("os"));
                 os.setTempoAbertura(resultSet.getString("tempo_abertura"));
 //                os.setDtPedido(resultSet.getString("dt_pedido"));
                 os.setDtPedido(resultSet.getTimestamp("dt_pedido"));

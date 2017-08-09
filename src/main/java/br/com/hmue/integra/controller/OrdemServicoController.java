@@ -28,11 +28,11 @@ import org.primefaces.context.RequestContext;
  */
 @Named(value = "osController")
 @SessionScoped
-public class OrdemServicoController implements Serializable{
+public class OrdemServicoController implements Serializable {
 
     @Inject
     private DAO dao;
-    
+
     private OrdemServico os;
     private List<OrdemServico> servicos;
 
@@ -51,9 +51,9 @@ public class OrdemServicoController implements Serializable{
     public List<OrdemServico> getServicos() {
         servicos = dao.getOSsPendentes();
         return servicos;
-        
+
     }
-    
+
     public void abrirView() {
         Map<String, Object> opcoes = new HashMap<String, Object>();
         opcoes.put("modal", true);
@@ -63,24 +63,33 @@ public class OrdemServicoController implements Serializable{
 
         RequestContext.getCurrentInstance().openDialog("/telas/os/cadastro", opcoes, null);
     }
-    
+
     public void fecharDialogo() {
         RequestContext.getCurrentInstance().closeDialog(null);
     }
-    
+
     public void postProcessXLS(Object document) {
         HSSFWorkbook wb = (HSSFWorkbook) document;
         HSSFSheet sheet = wb.getSheetAt(0);
         HSSFRow header = sheet.getRow(0);
-         
-        HSSFCellStyle cellStyle = wb.createCellStyle();  
-        cellStyle.setFillForegroundColor(HSSFColor.GREEN.index);
+
+        HSSFCellStyle cellStyle = wb.createCellStyle();
+        cellStyle.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);
         cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-         
-        for(int i=0; i < header.getPhysicalNumberOfCells();i++) {
+
+        for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
             HSSFCell cell = header.getCell(i);
-             
+
             cell.setCellStyle(cellStyle);
         }
     }
-}
+
+    public void imprimirOS() {
+        Map<String, Object> parametros = new HashMap<String, Object>();
+        parametros.put("cd_os", this.os.getOs());
+    }
+    
+    public void listener() {
+//        System.out.println("ok");
+    }
+ }

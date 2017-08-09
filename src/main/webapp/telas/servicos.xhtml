@@ -66,6 +66,13 @@
                     <p:column headerText="Responsável">
                         <h:outputText value="#{os.tecResponsavel}"/>
                     </p:column>
+                    
+                    <p:column style="width: 50px; text-align: center">
+                        <p:commandButton icon="fa fa-print" id="print" style="width: 30px" action="#{emissorRelatorioController.emitir()}" ajax="false">
+                            <f:setPropertyActionListener target="#{emissorRelatorioController.os}" value="#{os}"/>
+                        </p:commandButton>
+                        <p:tooltip value="Imprimir OS" for="print"/>
+                    </p:column>
 
                     <f:facet name="footer">
                         <div align="left">
@@ -73,6 +80,7 @@
                         </div>
                     </f:facet>
                 </p:dataTable>
+                <p:poll interval="60" listener="#{osController.listener()}" update="oss" />
             </div>
         </h:form>
     </ui:define>

@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="os_template" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c727dc44-8c74-44e0-929c-4306733424f3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="dataset1" uuid="f5c72aa7-a703-435d-8489-27055e036538"/>
+	<subDataset name="descricao" uuid="fd305cd5-8580-45c5-8dec-d9921236a475"/>
+	<subDataset name="Table Dataset 1" uuid="7233289f-09a8-483f-819f-d99f7a800741"/>
+	<parameter name="cd_os" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT CD_OS OS,
+       LPAD(DIA, 2, 0) || ' dia(s) ' || LPAD(HORA, 2, 0) || ':' ||
+       LPAD(MINUTO, 2, 0) || ':' || LPAD(SEGUNDO, 2, 0) TEMPO_ABERTURA,
+       DT_PEDIDO,
+       DS_SERVICO SERVICO,
+       NOME,
+       NM_SETOR SETOR,
+       DS_LOCALIDADE LOCALIDADE,
+       DS_RAMAL RAMAL,
+       DS_TIPO_OS TP_OS,
+       NM_USUARIO USUARIO,
+       STATUS,
+       DS_OBSERVACAO,
+       RESP TEC_RESPONSAVEL
+  FROM (
+
+        SELECT TRUNC(TEMPO) DIA,
+                TRUNC(((86400 * (TEMPO)) / 60) / 60) -
+                24 * (TRUNC((((86400 * (TEMPO)) / 60) / 60) / 24)) HORA,
+                TRUNC(TRUNC((86400 * (TEMPO) / 60) -
+                            60 * (TRUNC(((86400 * (TEMPO)) / 60) / 60)),
+                            '09')) MINUTO,
+                TRUNC(TRUNC((86400 * TEMPO) -
+                            60 * (TRUNC((86400 * TEMPO) / 60)))) SEGUNDO,
+                DS_SERVICO,
+                DS_TIPO_OS,
+                CD_OS,
+                DT_PEDIDO,
+                NOME,
+                NM_SETOR,
+                DS_LOCALIDADE,
+                DS_RAMAL,
+                NM_USUARIO,
+                RESP,
+                DS_OBSERVACAO,
+                DECODE(TP_SITUACAO,
+                       'S',
+                       'SOLICITADA',
+                       'A',
+                       'ABERTA',
+                       'C',
+                       'CONCLUÍDA',
+                       'N',
+                       'NÃO ATENDIDA',
+                       'M',
+                       'AGUARDANDO MATERIAL',
+                       'E',
+                       'CONSERTO EXTERNO',
+                       'F',
+                       'A AGENDAR',
+                       'L',
+                       'AGUARDANDO LIBERAÇÃO DO SETOR') STATUS
+          FROM (
+
+                 SELECT OS.CD_OS,
+                         OS.DT_PEDIDO,
+                         SYSDATE DT_ATUAL,
+                         (SYSDATE - OS.DT_PEDIDO) TEMPO,
+                         OS.DS_SERVICO,
+                         SUBSTR(OS.NM_SOLICITANTE,
+                                1,
+                                INSTR(OS.NM_SOLICITANTE, ' ') - 1) NOME,
+                         S.NM_SETOR,
+                         L.DS_LOCALIDADE,
+                         OS.DS_RAMAL,
+				                 OS.DS_OBSERVACAO,
+                         TPOS.DS_TIPO_OS,
+                         OS.NM_USUARIO,
+                         U.NM_USUARIO RESP,
+                         OS.TP_SITUACAO
+                   FROM SOLICITACAO_OS  OS,
+                         TIPO_OS         TPOS,
+                         SETOR           S,
+                         LOCALIDADE      L,
+                         DBASGU.USUARIOS U
+                  WHERE S.CD_SETOR = OS.CD_SETOR
+                    AND TPOS.CD_TIPO_OS = OS.CD_TIPO_OS
+                    AND L.CD_LOCALIDADE(+) = OS.CD_LOCALIDADE
+                    AND U.CD_USUARIO(+) = OS.CD_RESPONSAVEL
+                    AND OS.CD_OFICINA = 13
+                    AND OS.DT_PEDIDO > '01/07/2017'
+                  ORDER BY OS.CD_OS
+
+                 ))
+	WHERE CD_OS = $P{cd_os}]]>
+	</queryString>
+	<field name="OS" class="java.math.BigDecimal"/>
+	<field name="TEMPO_ABERTURA" class="java.lang.String"/>
+	<field name="DT_PEDIDO" class="java.sql.Timestamp"/>
+	<field name="SERVICO" class="java.lang.String"/>
+	<field name="NOME" class="java.lang.String"/>
+	<field name="SETOR" class="java.lang.String"/>
+	<field name="LOCALIDADE" class="java.lang.String"/>
+	<field name="RAMAL" class="java.lang.String"/>
+	<field name="TP_OS" class="java.lang.String"/>
+	<field name="USUARIO" class="java.lang.String"/>
+	<field name="STATUS" class="java.lang.String"/>
+	<field name="DS_OBSERVACAO" class="java.lang.String"/>
+	<field name="TEC_RESPONSAVEL" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="96" splitType="Stretch">
+			<staticText>
+				<reportElement style="table_TH" x="3" y="57" width="552" height="32" forecolor="#000000" uuid="95c1da6c-9c0d-471f-87c9-6d37d36e6732"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Ordem de Serviço]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="0" width="148" height="20" uuid="a58fa3d1-36ab-468f-b993-f09cc4dd24ad"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="437" y="0" width="100" height="20" uuid="40faefa1-6558-409f-87d9-7589537155d1"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="437" y="20" width="100" height="20" uuid="92e0c396-c1ab-4a0f-867a-d3e3cc6e9081"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{OS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="602" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="23" width="100" height="20" uuid="a6128cd9-1913-4937-89f1-2c61cdca4272"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Solicitante:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="43" width="100" height="20" uuid="0d89d756-d7f7-4f5b-854a-afcbf69e29b7"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Setor:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="63" width="100" height="20" uuid="a966b067-6f5c-4f4f-af8c-dd0a893f0d99"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Responsavel:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="359" y="23" width="53" height="20" uuid="05bd0d1e-b732-4aa9-b1e1-fabfce31e04b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ramal:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="433" width="184" height="20" uuid="89b80710-26b0-4b3f-ba3a-33f3f306c0cd"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Serviço executado]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="23" width="100" height="20" uuid="98a718bb-0977-4d6c-ab3d-d44f8f886423"/>
+				<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="43" width="100" height="20" uuid="920635f4-fd01-4fbf-bc86-ce4880906894"/>
+				<textFieldExpression><![CDATA[$F{SETOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="63" width="127" height="20" uuid="6909bff5-c1ed-43ca-8c88-8c5559fd44d1"/>
+				<textFieldExpression><![CDATA[$F{TEC_RESPONSAVEL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm">
+				<reportElement x="100" y="3" width="100" height="20" uuid="03c0da0c-49af-43f2-b182-b897cb94c8d9"/>
+				<textFieldExpression><![CDATA[$F{DT_PEDIDO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="3" width="100" height="20" uuid="157f0bc1-9f51-4cfc-b3a0-5c5633c81a9c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data/Hora abertura:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="412" y="23" width="100" height="20" uuid="79226a91-00ca-42d9-bbb9-783b8c920bac"/>
+				<textFieldExpression><![CDATA[$F{RAMAL}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="10">
+				<reportElement x="0" y="453" width="555" height="136" uuid="e899d089-1265-4e28-b7fa-48c9445b5ed4"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="99" width="221" height="20" uuid="ba32e735-2cc3-4fd4-ab0f-9f2535f856b9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição solicitação:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="3" y="119" width="224" height="47" uuid="433ab286-149c-4122-8edb-8cfd7e55195c"/>
+				<textFieldExpression><![CDATA[$F{SERVICO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="table_TD" mode="Opaque" x="3" y="178" width="171" height="20" backcolor="#FFFFFF" uuid="dc149826-74e6-4bd3-842d-b8d5dad4b020"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição serviço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" mode="Opaque" x="174" y="178" width="133" height="20" backcolor="#FFFFFF" uuid="f61e837e-61af-44ab-8337-4c871bde3a9f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[executante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" mode="Opaque" x="307" y="178" width="130" height="20" backcolor="#FFFFFF" uuid="82b9d4d3-3c0c-4778-8033-f1fbaa4833a3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Início]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" mode="Opaque" x="437" y="178" width="118" height="20" backcolor="#FFFFFF" uuid="d21c8787-adf4-4817-b945-d1364fdbcec4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fim]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="203" width="130" height="20" uuid="611e5a83-8209-4d34-a7a6-3077f3185b12"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____/___/___  ___:___]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="203" width="171" height="20" uuid="4b590e7c-e873-4b46-8690-52258ff73191"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="174" y="203" width="133" height="20" uuid="4cf2c5d1-e1e1-4fd6-af59-c7e8139f60dc"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="203" width="118" height="20" uuid="0631584b-9edd-4921-9136-8791e34f1a28"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____/___/___  ___:___]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="174" y="233" width="133" height="20" uuid="d44a30af-b1ad-4ca6-afec-fcfc8b309132"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="233" width="171" height="20" uuid="fc5ad84d-a29e-4820-bc3a-3d5b305a449f"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="233" width="130" height="20" uuid="bf8fa2d2-b633-442d-8118-95116f671b87"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____/___/___  ___:___]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="233" width="118" height="20" uuid="0b352085-ee9f-4a12-b1d1-8da8317895ac"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____/___/___  ___:___]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="263" width="130" height="20" uuid="2de81b49-8d5e-48fe-b5a0-b3a1560d321b"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____/___/___  ___:___]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="263" width="118" height="20" uuid="ebf86daa-62a0-49e3-b2db-41098618c16c"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____/___/___  ___:___]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="174" y="263" width="133" height="20" uuid="d15b2e7e-0c3f-428b-8199-6b17ca1818f4"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="263" width="171" height="20" uuid="ac2b685a-2d4a-4877-b531-34eac5de1dfc"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="174" y="293" width="133" height="20" uuid="419e7025-7cd0-4688-aca5-4ac32b6462e7"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="293" width="118" height="20" uuid="249b2818-67be-4a4b-9efe-98ed96a36c81"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____/___/___  ___:___]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="293" width="171" height="20" uuid="c92c3580-6661-4b4c-8c95-83909c241538"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="293" width="130" height="20" uuid="37e0f2df-096e-4e4d-b421-e09852a720e3"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____/___/___  ___:___]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="321" width="171" height="20" uuid="ccb0590c-b41d-416e-b672-4f155bbe4330"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="438" y="321" width="118" height="20" uuid="0c0a59cb-1417-4d90-9ad6-dc893c7d4d60"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____/___/___  ___:___]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="321" width="133" height="20" uuid="44785a1a-74f4-4eb7-bf52-6365bb822a92"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="321" width="130" height="20" uuid="4956ebd2-38cc-4daa-bfd2-eed85e211ffb"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____/___/___  ___:___]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="348" width="133" height="20" uuid="79f8565d-33af-4f2e-8ca8-c80d5a6c5afd"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="348" width="171" height="20" uuid="37a01502-ac46-4201-871f-25a47bb17e3d"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="348" width="130" height="20" uuid="890e1e5f-e00f-4c3e-80ac-0070c7a5ad7d"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____/___/___  ___:___]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="438" y="348" width="118" height="20" uuid="35adff31-9c3c-4758-8587-91a26529d98e"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____/___/___  ___:___]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="375" width="130" height="20" uuid="be54afbd-497c-4180-8bca-396c191cb0d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____/___/___  ___:___]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="375" width="171" height="20" uuid="c30437b1-c096-4225-9a1c-ded723776eac"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="438" y="375" width="118" height="20" uuid="16449f94-1238-497f-9817-48024471c902"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____/___/___  ___:___]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="375" width="133" height="20" uuid="adb6f6e8-e193-4b3f-a500-e597c383a758"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[____________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="259" y="99" width="59" height="20" uuid="91f866ab-a62f-489f-90a3-ff7242a2fafc"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observação:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="337" y="99" width="218" height="67" uuid="8508cc38-bce1-4268-9257-96074a32cc15"/>
+				<textFieldExpression><![CDATA[$F{DS_OBSERVACAO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<pageFooter>
+		<band height="60" splitType="Stretch">
+			<rectangle>
+				<reportElement x="371" y="0" width="184" height="54" uuid="6f817023-2a93-4a33-9e80-5a45d2c4e633"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="174" y="0" width="197" height="54" uuid="52db435b-cc2f-4b6a-9867-b383b25a8b90"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="174" height="54" uuid="2499e46b-9788-4678-9fa8-61cf9ed630ac"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="14" y="0" width="147" height="34" uuid="f302c2f6-ad33-45ce-8dd3-9bd8a9a7fc85"/>
+				<text><![CDATA[Recebi em devolução o serviço em condições de uso:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="14" y="44" width="134" height="1" uuid="0f976685-f99a-4597-ae40-b7fa5af5d1e0"/>
+			</line>
+			<staticText>
+				<reportElement x="200" y="0" width="147" height="34" uuid="1db8f59a-8af4-4831-8cb5-b6d5f1f5a21b"/>
+				<text><![CDATA[Responável Técnico pela realização do Serviço:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="0" width="147" height="34" uuid="9dcaa844-0401-430e-99bb-dd20e8f04b60"/>
+				<text><![CDATA[Supervisão da Manutenção:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="190" y="43" width="157" height="1" uuid="73bc4696-92fb-42f3-b7cf-00b3ec713bb5"/>
+			</line>
+			<line>
+				<reportElement x="390" y="42" width="147" height="1" uuid="4a9d32ab-705b-400a-b999-852cbef5bdaf"/>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>
