@@ -5,7 +5,7 @@
  */
 package br.com.hmue.integra.controller;
 
-import br.com.hmue.integra.modelo.DAO;
+import br.com.hmue.integra.modelo.repositorio.DAO;
 import br.com.hmue.integra.modelo.OrdemServico;
 import java.io.Serializable;
 import java.util.HashMap;

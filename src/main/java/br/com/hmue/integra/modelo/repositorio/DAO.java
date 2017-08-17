@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.hmue.integra.modelo;
+package br.com.hmue.integra.modelo.repositorio;
 
 import br.com.hmue.integra.factory.ConnectionFactory;
+import br.com.hmue.integra.modelo.OrdemServico;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
