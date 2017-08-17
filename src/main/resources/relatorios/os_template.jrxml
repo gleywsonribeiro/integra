@@ -40,6 +40,7 @@
        DS_SERVICO SERVICO,
        NOME,
        NM_SETOR SETOR,
+       CD_SETOR,
        DS_LOCALIDADE LOCALIDADE,
        DS_RAMAL RAMAL,
        DS_TIPO_OS TP_OS,
@@ -63,6 +64,7 @@
                 DT_PEDIDO,
                 NOME,
                 NM_SETOR,
+                CD_SETOR,
                 DS_LOCALIDADE,
                 DS_RAMAL,
                 NM_USUARIO,
@@ -95,6 +97,7 @@
                          SUBSTR(OS.NM_SOLICITANTE,
                                 1,
                                 INSTR(OS.NM_SOLICITANTE, ' ') - 1) NOME,
+			                   S.CD_SETOR,
                          S.NM_SETOR,
                          L.DS_LOCALIDADE,
                          OS.DS_RAMAL,
@@ -125,6 +128,7 @@
 	<field name="SERVICO" class="java.lang.String"/>
 	<field name="NOME" class="java.lang.String"/>
 	<field name="SETOR" class="java.lang.String"/>
+	<field name="CD_SETOR" class="java.math.BigDecimal"/>
 	<field name="LOCALIDADE" class="java.lang.String"/>
 	<field name="RAMAL" class="java.lang.String"/>
 	<field name="TP_OS" class="java.lang.String"/>
@@ -204,7 +208,7 @@
 				<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="43" width="237" height="20" uuid="920635f4-fd01-4fbf-bc86-ce4880906894"/>
+				<reportElement x="127" y="43" width="355" height="20" uuid="920635f4-fd01-4fbf-bc86-ce4880906894"/>
 				<textFieldExpression><![CDATA[$F{SETOR}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -430,6 +434,10 @@
 				</textElement>
 				<text><![CDATA[Localidade]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="100" y="43" width="27" height="20" uuid="4a2d315e-11aa-408f-8a9e-187f2b7409a5"/>
+				<textFieldExpression><![CDATA[$F{CD_SETOR}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<pageFooter>
