@@ -6,6 +6,7 @@
 package br.com.hmue.integra.modelo.repositorio;
 
 import br.com.hmue.integra.factory.ConnectionFactory;
+import br.com.hmue.integra.modelo.FuncionarioOS;
 import br.com.hmue.integra.modelo.OrdemServico;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -127,6 +128,91 @@ public class DAO implements Serializable {
                 os.setTecResponsavel(resultSet.getString("tec_responsavel"));
 
                 lista.add(os);
+            }
+
+            //Executa a sql para inserção dos dados
+            pstm.execute();
+
+        } catch (ClassNotFoundException e) {
+
+        } catch (SQLException e) {
+
+        } finally {
+            //Fecha as conexões
+            try {
+                if (pstm != null) {
+
+                    pstm.close();
+                }
+
+                if (connection != null) {
+                    connection.close();
+                }
+
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        return lista;
+    }
+
+    public List<FuncionarioOS> OSPorFuncionario() {
+        String sql = "SELECT MES,\n"
+                + "       CARGO,\n"
+                + "       NOME,\n"
+                + "       COUNT(NOME) QTD\n"
+                + "  FROM (SELECT SOLICITACAO_OS.CD_OS,\n"
+                + "               TO_CHAR(SOLICITACAO_OS.DT_PEDIDO, 'mm/yyyy') MES,\n"
+                + "               SOLICITACAO_OS.DS_SERVICO,\n"
+                + "               SOLICITACAO_OS.DS_OBSERVACAO,\n"
+                + "               SOLICITACAO_OS.CD_SETOR,\n"
+                + "               SETOR.NM_SETOR,\n"
+                + "               ITSOLICITACAO_OS.CD_FUNC,\n"
+                + "               FUNCIONARIO.NM_FUNC NOME,\n"
+                + "               TIPO_CARGO_PLANO.DS_CARGO CARGO\n"
+                + "          FROM DBAMV.SOLICITACAO_OS,\n"
+                + "               DBAMV.ITSOLICITACAO_OS,\n"
+                + "               DBAMV.FUNCIONARIO,\n"
+                + "               DBAMV.SETOR,\n"
+                + "               DBAMV.TIPO_CARGO_PLANO\n"
+                + "         WHERE SOLICITACAO_OS.CD_OS = ITSOLICITACAO_OS.CD_OS\n"
+                + "           AND FUNCIONARIO.CD_FUNC = ITSOLICITACAO_OS.CD_FUNC\n"
+                + "           AND SETOR.CD_SETOR = SOLICITACAO_OS.CD_SETOR\n"
+                + "           AND FUNCIONARIO.CD_TIPO_CARGO_PLANO(+) = TIPO_CARGO_PLANO.CD_TIPO_CARGO_PLANO\n"
+                + "           AND TO_CHAR(SOLICITACAO_OS.DT_PEDIDO, 'mm/yyyy') = to_char(sysdate, 'mm/yyyy')\n"
+                + "           AND SOLICITACAO_OS.CD_OFICINA = 13\n"
+                + "           AND SOLICITACAO_OS.TP_SITUACAO = 'C'\n"
+                + "          ORDER BY SOLICITACAO_OS.CD_OS)\n"
+                + "GROUP BY MES,CARGO, NOME\n"
+                + "ORDER BY cargo,QTD DESC\n"
+                + "";
+
+        Connection connection = null;
+        PreparedStatement pstm = null;
+        //Classe que vai recuperar os dados do banco de dados
+        ResultSet resultSet = null;
+
+        List<FuncionarioOS> lista = new ArrayList<FuncionarioOS>();
+
+        try {
+            //Cria uma conexão com o banco
+            connection = ConnectionFactory.createConnectionToOracle();
+
+            //Cria um PreparedStatment, classe usada para executar a query
+            pstm = connection.prepareStatement(sql);
+            resultSet = pstm.executeQuery();
+
+            while (resultSet.next()) {
+                FuncionarioOS funcionario = new FuncionarioOS();
+                //os.setNome(resultSet.getString("nome"));
+                funcionario.setNome(resultSet.getString("nome"));
+                funcionario.setCargo(resultSet.getString("cargo"));
+                funcionario.setMes(resultSet.getString("mes"));
+                funcionario.setQuantidade(resultSet.getInt("qtd"));
+
+                lista.add(funcionario);
             }
 
             //Executa a sql para inserção dos dados

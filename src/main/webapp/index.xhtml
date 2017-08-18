@@ -13,6 +13,9 @@
             <p>#{loginController.saudacao()}</p>
             <p>Use o menu acima</p>
         </div>
+        <p:panel>
+            <p:chart type="bar" model="#{graficoController.grafico}"  style="height:600px; width: 600px"/>
+        </p:panel>
     </ui:define>
 
 </ui:composition>
