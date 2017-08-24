@@ -35,6 +35,7 @@ public class OrdemServicoController implements Serializable {
 
     private OrdemServico os;
     private List<OrdemServico> servicos;
+    private List<OrdemServico> outrosServicos;
 
     public OrdemServicoController() {
         this.os = new OrdemServico();
@@ -46,6 +47,11 @@ public class OrdemServicoController implements Serializable {
 
     public void setOs(OrdemServico os) {
         this.os = os;
+    }
+
+    public List<OrdemServico> getOutrosServicos() {
+        outrosServicos = dao.aguardandoAtencao();
+        return outrosServicos;
     }
 
     public List<OrdemServico> getServicos() {

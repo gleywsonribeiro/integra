@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../WEB-INF/template/layout.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="titulo">
+        Monitor de Servicos
+    </ui:define>
+
+    <ui:define name="corpo">
+        <h:form>
+            <h:outputText value="Ordens de Serviço Aguardando Atenção" styleClass="titulo"/>
+
+            <div style="float: right; margin-right: 10px">
+<!--                <h:commandLink id="print">
+                    <p:graphicImage library="imagens" name="print-icon.png"/>
+                </h:commandLink>
+                <p:tooltip value="Imprimir todas as OS's" for="print"/>-->
+                
+                <h:commandLink id="export">
+                    <p:graphicImage library="imagens" name="sheets-icon.png"/>
+                    <p:dataExporter type="xls" target="oss" fileName="os_pendentes" postProcessor="#{osController.postProcessXLS}" />
+                </h:commandLink>
+                <p:tooltip value="Exportar" for="export"/>
+            </div>
+
+            <p:dataTable id="oss" value="#{osController.outrosServicos}" scrollable="true" scrollHeight="600" reflow="true"
+                         var="os" style="margin-top: 20px;" emptyMessage="Não há registros." >
+
+                <p:column headerText="Código" style="text-align: center; width: 100px;">
+                    <p:commandLink value="#{os.os}" action="#{osController.abrirView()}" process="@this">
+                        <f:setPropertyActionListener target="#{exibeOsController.servico}" value="#{os}"/>
+                        <!--<p:ajax event="dialogReturn" process="@this" update="@form"/>-->
+                    </p:commandLink>
+                </p:column>
+
+                <p:column headerText="Tempo Abertura" >
+                    <h:outputText value="#{os.tempoAbertura}"/>
+                </p:column>
+
+                <p:column headerText="Data Pedido" >
+                    <h:outputText value="#{os.dtPedido}" style="font-weight: bold; font-size: 11px">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Nome">
+                    <h:outputText value="#{os.nome}"/>
+                </p:column>
+
+                <p:column headerText="Setor">
+                    <h:outputText value="#{os.setor}"/>
+                </p:column>
+
+                <p:column headerText="Localidade">
+                    <h:outputText value="#{os.localidade}"/>
+                </p:column>
+
+                <p:column headerText="Ramal" style="text-align: center">
+                    <h:outputText value="#{os.ramal}"/>
+                </p:column>
+
+                <p:column headerText="Status">
+                    <h:outputText value="#{os.status}"/>
+                </p:column>
+
+                <p:column headerText="Responsável">
+                    <h:outputText value="#{os.tecResponsavel}"/>
+                </p:column>
+
+                <p:column style="width: 50px; text-align: center">
+                    <p:commandButton icon="fa fa-print" id="print" style="width: 30px" action="#{emissorRelatorioController.emitir()}" ajax="false">
+                        <f:setPropertyActionListener target="#{emissorRelatorioController.os}" value="#{os}"/>
+                    </p:commandButton>
+                    <p:tooltip value="Imprimir OS" for="print"/>
+                </p:column>
+
+                <f:facet name="footer">
+                    <div align="left">
+                        <h:outputText value="Total Pendente: #{osController.servicos.size()}"/>
+                    </div>
+                </f:facet>
+            </p:dataTable>
+            <p:poll interval="60" listener="#{osController.listener()}" update="oss" />
+        </h:form>
+    </ui:define>
+
+</ui:composition>

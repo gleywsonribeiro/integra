@@ -20,9 +20,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  *
@@ -57,8 +54,6 @@ public class EmissorRelatorioController {
             } else {
                 JsfUtil.addErrorMessage("A execução do relatório não retornou dados.");
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EmissorRelatorioController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(EmissorRelatorioController.class.getName()).log(Level.SEVERE, null, ex);
         }
