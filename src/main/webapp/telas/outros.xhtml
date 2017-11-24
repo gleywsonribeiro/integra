@@ -15,11 +15,11 @@
             <h:outputText value="Ordens de Serviço Aguardando Atenção" styleClass="titulo"/>
 
             <div style="float: right; margin-right: 10px">
-<!--                <h:commandLink id="print">
-                    <p:graphicImage library="imagens" name="print-icon.png"/>
-                </h:commandLink>
-                <p:tooltip value="Imprimir todas as OS's" for="print"/>-->
-                
+                <!--                <h:commandLink id="print">
+                                    <p:graphicImage library="imagens" name="print-icon.png"/>
+                                </h:commandLink>
+                                <p:tooltip value="Imprimir todas as OS's" for="print"/>-->
+
                 <h:commandLink id="export">
                     <p:graphicImage library="imagens" name="sheets-icon.png"/>
                     <p:dataExporter type="xls" target="oss" fileName="os_pendentes" postProcessor="#{osController.postProcessXLS}" />
@@ -31,10 +31,11 @@
                          var="os" style="margin-top: 20px;" emptyMessage="Não há registros." >
 
                 <p:column headerText="Código" style="text-align: center; width: 100px;">
-                    <p:commandLink value="#{os.os}" action="#{osController.abrirView()}" process="@this">
-                        <f:setPropertyActionListener target="#{exibeOsController.servico}" value="#{os}"/>
-                        <!--<p:ajax event="dialogReturn" process="@this" update="@form"/>-->
-                    </p:commandLink>
+                    <!--                    <p:commandLink value="{os.os}" action="{osController.abrirView()}" process="@this">
+                                            <f:setPropertyActionListener target="{exibeOsController.servico}" value="{os}"/>
+                                        </p:commandLink>-->
+                    <h:outputText value="#{os.os}" id="cdOS"/> 
+                    <p:tooltip value="#{os.servico}" for="cdOS"/>
                 </p:column>
 
                 <p:column headerText="Tempo Abertura" >

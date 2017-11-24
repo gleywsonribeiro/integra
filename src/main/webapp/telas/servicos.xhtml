@@ -19,12 +19,12 @@
                     <p:graphicImage library="imagens" name="document-edit.png"/>
                 </h:commandLink>
                 <p:tooltip value="Imprimir OS em branco" for="printBlank"/>
-                
+
                 <h:commandLink id="print">
                     <p:graphicImage library="imagens" name="print-icon.png"/>
                 </h:commandLink>
                 <p:tooltip value="Imprimir todas as OS's" for="print"/>
-                
+
                 <h:commandLink id="export">
                     <p:graphicImage library="imagens" name="sheets-icon.png"/>
                     <p:dataExporter type="xls" target="oss" fileName="os_pendentes" postProcessor="#{osController.postProcessXLS}" />
@@ -36,10 +36,11 @@
                          var="os" style="margin-top: 20px;" emptyMessage="Não há registros." >
 
                 <p:column headerText="Código" style="text-align: center; width: 100px;">
-                    <p:commandLink value="#{os.os}" action="#{osController.abrirView()}" process="@this">
-                        <f:setPropertyActionListener target="#{exibeOsController.servico}" value="#{os}"/>
-                        <!--<p:ajax event="dialogReturn" process="@this" update="@form"/>-->
-                    </p:commandLink>
+                    <!--                    <p:commandLink value="{os.os}" action="{osController.abrirView()}" process="@this">
+                                            <f:setPropertyActionListener target="{exibeOsController.servico}" value="{os}"/>
+                                        </p:commandLink>-->
+                    <h:outputText value="#{os.os}" id="cdOS" style="color: #990000; font-weight: bold" /> 
+                    <p:tooltip value="#{os.servico}" for="cdOS"/>
                 </p:column>
 
                 <p:column headerText="Tempo Abertura" >
@@ -53,7 +54,7 @@
                 </p:column>
 
                 <p:column headerText="Nome">
-                    <h:outputText value="#{os.nome}"/>
+                    <h:outputText value="#{os.nome}" id="nome"/>
                 </p:column>
 
                 <p:column headerText="Setor">
