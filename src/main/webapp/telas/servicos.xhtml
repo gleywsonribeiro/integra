@@ -12,12 +12,16 @@
 
     <ui:define name="corpo">
         <h:form>
+            <p:dialog modal="true" widgetVar="statusDialogo" header="Aguarde..." draggable="false" closable="false" resizable="false">
+                <p:graphicImage library="imagens" name="ajax-loader.gif" />
+            </p:dialog>
             <h:outputText value="Monitor de Ordens de Serviços Pendentes" styleClass="titulo"/>
 
             <div style="float: right; margin-right: 10px">
-                <h:commandLink id="printBlank">
+                <p:commandLink id="printBlank" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);">
+                    <p:fileDownload value="#{emissorRelatorioController.file}" />
                     <p:graphicImage library="imagens" name="document-edit.png"/>
-                </h:commandLink>
+                </p:commandLink>
                 <p:tooltip value="Imprimir OS em branco" for="printBlank"/>
 
                 <h:commandLink id="print">

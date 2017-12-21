@@ -11,6 +11,15 @@
         <title><ui:insert name="titulo">SITI - Sistema Integrado de TI</ui:insert></title>
         <h:outputStylesheet library="css" name="sistema.css"/>
         <h:outputScript library="scripts" name="calendario.js"/>
+        <script type="text/javascript">
+            function start() {
+                PF('statusDialogo').show();
+            }
+
+            function stop() {
+                PF('statusDialogo').hide();
+            }
+        </script>
     </h:head>
 
     <h:body>
@@ -43,7 +52,7 @@
                     <p:tooltip value="Agurdando Status" for="tool"/>
                 </h:link>
             </div>
-            
+
             <div style="float: left; margin-right: 10px">
                 <h:link>
                     <h:graphicImage library="imagens" name="search-icon.png" id="consulta"/>
