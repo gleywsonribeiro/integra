@@ -9,6 +9,7 @@ import br.com.hmue.integra.factory.ConnectionFactory;
 import br.com.hmue.integra.jsf.util.JsfUtil;
 import br.com.hmue.integra.modelo.OrdemServico;
 import br.com.hmue.integra.service.ExecutorRelatorio;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -20,6 +21,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -30,12 +33,24 @@ import javax.servlet.http.HttpServletResponse;
 public class EmissorRelatorioController {
 
     private OrdemServico os;
+    private StreamedContent file;
     
     @Inject
     private FacesContext facesContext;
 
     @Inject
     private HttpServletResponse response;
+
+    public EmissorRelatorioController() {
+        try {
+            InputStream stream = this.getClass().getResourceAsStream("/relatorios/blank.pdf");
+        file = new DefaultStreamedContent(stream, "application/pdf","os_em_branco.pdf");
+        } catch (Exception e) {
+            System.err.println("Erro ao abrir o arquivo");
+        }
+    }
+    
+    
 
     public void emitir() {
         try {
@@ -65,6 +80,10 @@ public class EmissorRelatorioController {
 
     public void setOs(OrdemServico os) {
         this.os = os;
+    }
+
+    public StreamedContent getFile() {
+        return file;
     }
 
     
