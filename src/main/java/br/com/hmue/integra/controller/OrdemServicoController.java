@@ -57,9 +57,18 @@ public class OrdemServicoController implements Serializable {
     public List<OrdemServico> getServicos() {
         servicos = dao.getOSsPendentes();
         return servicos;
-
     }
 
+    public List<OrdemServico> getServidosDoDia() {
+        servicos = dao.getServicosDoDia();
+        return servicos;
+    }
+
+    public List<OrdemServico> getServicosPreventivos() {
+        servicos = dao.getServicosPreventivos();
+        return servicos;
+    }
+    
     public void abrirView() {
         Map<String, Object> opcoes = new HashMap<String, Object>();
         opcoes.put("modal", true);
@@ -94,8 +103,8 @@ public class OrdemServicoController implements Serializable {
         Map<String, Object> parametros = new HashMap<String, Object>();
         parametros.put("cd_os", this.os.getOs());
     }
-    
+
     public void listener() {
 //        System.out.println("ok");
     }
- }
+}

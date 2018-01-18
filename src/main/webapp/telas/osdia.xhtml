@@ -12,35 +12,14 @@
 
     <ui:define name="corpo">
         <h:form>
-            <p:dialog modal="true" widgetVar="statusDialogo" header="Aguarde..." draggable="false" closable="false" resizable="false">
-                <p:graphicImage library="imagens" name="ajax-loader.gif" />
-            </p:dialog>
-            <h:outputText value="Monitor de Ordens de Serviços Pendentes" styleClass="titulo"/>
+            <h:outputText value="Serviços do Dia" styleClass="titulo"/>
 
-            <div style="float: right; margin-right: 10px">
-                <p:commandLink id="printBlank" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);">
-                    <p:fileDownload value="#{emissorRelatorioController.file}" />
-                    <p:graphicImage library="imagens" name="document-edit.png"/>
-                </p:commandLink>
-                <p:tooltip value="Imprimir OS em branco" for="printBlank"/>
 
-                <h:commandLink id="print">
-                    <p:graphicImage library="imagens" name="print-icon.png"/>
-                </h:commandLink>
-                <p:tooltip value="Imprimir todas as OS's" for="print"/>
-
-                <h:commandLink id="export">
-                    <p:graphicImage library="imagens" name="sheets-icon.png"/>
-                    <p:dataExporter type="xls" target="oss" fileName="os_pendentes" postProcessor="#{osController.postProcessXLS}" />
-                </h:commandLink>
-                <p:tooltip value="Exportar" for="export"/>
-            </div>
-
-            <p:dataTable id="oss" value="#{osController.servicos}" scrollable="true" scrollHeight="600" reflow="true"
+            <p:dataTable id="oss" value="#{osController.servidosDoDia}" scrollable="true" scrollHeight="600" reflow="true"
                          var="os" style="margin-top: 20px;" emptyMessage="Não há registros." >
 
                 <p:column headerText="Código" style="text-align: center; width: 100px;">
-                    <h:outputText value="#{os.os}" id="cdOS" style="color: #990000; font-weight: bold" /> 
+                    <h:outputText value="#{os.os}" id="cdOS"/> 
                     <p:tooltip value="#{os.servico}" for="cdOS"/>
                 </p:column>
 
@@ -55,7 +34,7 @@
                 </p:column>
 
                 <p:column headerText="Nome">
-                    <h:outputText value="#{os.nome}" id="nome"/>
+                    <h:outputText value="#{os.nome}"/>
                 </p:column>
 
                 <p:column headerText="Setor">
@@ -87,7 +66,7 @@
 
                 <f:facet name="footer">
                     <div align="left">
-                        <h:outputText value="Total Pendente: #{osController.servicos.size()}"/>
+                        <h:outputText value="Total Pendente: #{osController.servidosDoDia.size()}"/>
                     </div>
                 </f:facet>
             </p:dataTable>

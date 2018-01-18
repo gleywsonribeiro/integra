@@ -47,14 +47,21 @@
             </div>
 
             <div style="float: left; margin-right: 10px">
-                <h:link outcome="/telas/outros">
-                    <h:graphicImage library="imagens" name="tool.png" id="tool"/>
+                <h:link outcome="/telas/aguardando">
+                    <h:graphicImage library="imagens" name="system-time-icon.png" id="tool"/>
                     <p:tooltip value="Agurdando Status" for="tool"/>
+                </h:link>
+            </div>
+            
+            <div style="float: left; margin-right: 10px">
+                <h:link outcome="/telas/preventivas">
+                    <h:graphicImage library="imagens" name="tool.png" id="preventiva"/>
+                    <p:tooltip value="Preventivas" for="preventiva"/>
                 </h:link>
             </div>
 
             <div style="float: left; margin-right: 10px">
-                <h:link>
+                <h:link outcome="/telas/osdia">
                     <h:graphicImage library="imagens" name="search-icon.png" id="consulta"/>
                     <p:tooltip value="Consulta de OS do dia" for="consulta"/>
                 </h:link>
