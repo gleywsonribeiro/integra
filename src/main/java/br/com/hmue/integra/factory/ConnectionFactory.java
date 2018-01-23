@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class ConnectionFactory {
 
     private static final String USERNAME = "dbamv";
-    private static final String PASSWORD = "prosaude123";
+    private static final String PASSWORD = "prosaude1973";
     private static final String SERVER = "10.79.100.15";
     private static final String PORT = "1521";
     private static final String DATABASE = "prd";
