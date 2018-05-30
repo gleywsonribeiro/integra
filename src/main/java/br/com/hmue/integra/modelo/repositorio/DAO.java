@@ -133,7 +133,6 @@ public class DAO implements Serializable {
 
             //Executa a sql para inserção dos dados
             //pstm.execute();
-
         } catch (SQLException e) {
 
         } finally {
@@ -267,7 +266,6 @@ public class DAO implements Serializable {
 
             //Executa a sql para inserção dos dados
             //pstm.execute();
-
         } catch (SQLException e) {
 
         } finally {
@@ -403,7 +401,6 @@ public class DAO implements Serializable {
 
             //Executa a sql para inserção dos dados
             //pstm.execute();
-
         } catch (SQLException e) {
 
         } finally {
@@ -486,7 +483,6 @@ public class DAO implements Serializable {
 
             //Executa a sql para inserção dos dados
             //pstm.execute();
-
         } catch (SQLException e) {
 
         } finally {
@@ -510,6 +506,68 @@ public class DAO implements Serializable {
         return lista;
     }
 
+    public List<OrdemServico> aguardandoAvaliacao() {
+        String sql = "";
+
+        Connection connection = null;
+        PreparedStatement pstm = null;
+        //Classe que vai recuperar os dados do banco de dados
+        ResultSet resultSet = null;
+
+        List<OrdemServico> lista = new ArrayList<OrdemServico>();
+
+        try {
+            //Cria uma conexão com o banco
+            connection = ConnectionFactory.createConnectionToOracle();
+
+            //Cria um PreparedStatment, classe usada para executar a query
+            pstm = connection.prepareStatement(sql);
+            resultSet = pstm.executeQuery();
+
+            while (resultSet.next()) {
+                OrdemServico os = new OrdemServico();
+
+                os.setOs(resultSet.getInt("os"));
+                os.setTempoAbertura(resultSet.getString("tempo_abertura"));
+//                os.setDtPedido(resultSet.getString("dt_pedido"));
+                os.setDtPedido(resultSet.getTimestamp("dt_pedido"));
+                os.setServico(resultSet.getString("servico"));
+                os.setNome(resultSet.getString("nome"));
+                os.setSetor(resultSet.getString("setor"));
+                os.setLocalidade(resultSet.getString("localidade"));
+                os.setRamal(resultSet.getString("ramal"));
+                os.setTpOs(resultSet.getString("tp_os"));
+                os.setUsuario(resultSet.getString("usuario"));
+                os.setStatus(resultSet.getString("status"));
+                os.setTecResponsavel(resultSet.getString("tec_responsavel"));
+
+                lista.add(os);
+            }
+
+            //Executa a sql para inserção dos dados
+            //pstm.execute();
+        } catch (SQLException e) {
+
+        } finally {
+            //Fecha as conexões
+            try {
+                if (pstm != null) {
+
+                    pstm.close();
+                }
+
+                if (connection != null) {
+                    connection.close();
+                }
+
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        return lista;
+    }
 //    -----
     public List<OrdemServico> aguardandoAtencao() {
         String sql = "SELECT CD_OS OS,\n"
@@ -621,7 +679,6 @@ public class DAO implements Serializable {
 
             //Executa a sql para inserção dos dados
             //pstm.execute();
-
         } catch (SQLException e) {
 
         } finally {
