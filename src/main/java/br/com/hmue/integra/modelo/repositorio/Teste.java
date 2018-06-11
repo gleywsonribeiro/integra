@@ -21,5 +21,9 @@ public class Teste {
         } catch (SQLException ex) {
             Logger.getLogger(Teste.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        System.out.println("----------------------");
+        
+        System.out.println(new AvaliacaoOsDAO().getAvaliacoesPendentes());
     }
 }

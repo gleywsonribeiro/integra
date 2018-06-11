@@ -2,16 +2,64 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:composition>
-        <p:menubar styleClass="menu-sistema">
-            <p:submenu label="OS">
-                <p:menuitem value="Monitoramento" outcome="/telas/servicos"/>
-            </p:submenu>
-            
-            <p:menuitem value="Sair" action="#{loginController.logout()}"/>
-        </p:menubar>
+
+        <div style="float: left; margin-right: 10px">
+            <h:link outcome="/index">
+                <h:graphicImage library="imagens" name="home-icon.png" id="home"/>
+                <p:tooltip value="Ir para início" for="home"/>
+            </h:link>
+        </div>
+
+        <div style="float: left; margin-right: 10px">
+            <h:link outcome="/telas/servicos">
+                <h:graphicImage library="imagens" name="order.png" id="order"/>
+                <p:tooltip value="Serviços" for="order"/>
+            </h:link>
+        </div>
+
+        <div style="float: left; margin-right: 10px">
+            <h:link outcome="/telas/aguardando">
+                <h:graphicImage library="imagens" name="status-icon.png" id="tool"/>
+                <p:tooltip value="Aguardando Posicionamento" for="tool"/>
+            </h:link>
+        </div>
+
+        <div style="float: left; margin-right: 10px">
+            <h:link outcome="/telas/preventivas">
+                <h:graphicImage library="imagens" name="tool.png" id="preventiva"/>
+                <p:tooltip value="Preventivas" for="preventiva"/>
+            </h:link>
+        </div>
+
+        <div style="float: left; margin-right: 10px">
+            <h:link outcome="/telas/osdia">
+                <h:graphicImage library="imagens" name="search-icon.png" id="consulta"/>
+                <p:tooltip value="Consulta de OS do dia" for="consulta"/>
+            </h:link>
+        </div>
+
+        <div style="float: left; margin-right: 10px">
+            <h:link outcome="/telas/aguardando_avaliacao">
+                <h:graphicImage library="imagens" name="tests-icon.png" id="avaliacao"/>
+                <p:tooltip value="Aguardando Avaliação" for="avaliacao"/>
+            </h:link>
+        </div>
+
+        <div style="float: right; margin-right: 50px">
+            <span style="float: left; height: 30px; line-height: 30px; margin-right: 30px">
+                Olá #{loginController.usuario.nome}
+            </span>
+            <p:commandLink action="#{loginController.logout()}">
+                <h:graphicImage library="imagens" name="power.png" id="sair"/>
+                <p:tooltip value="Sair" for="sair"/>
+            </p:commandLink>
+        </div>
+        <div style="clear: both"/>
+
     </ui:composition>
 
 </html>

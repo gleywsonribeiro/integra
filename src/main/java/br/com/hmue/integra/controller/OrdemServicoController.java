@@ -7,11 +7,10 @@ package br.com.hmue.integra.controller;
 
 import br.com.hmue.integra.modelo.repositorio.DAO;
 import br.com.hmue.integra.modelo.OrdemServico;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -27,8 +26,8 @@ import org.primefaces.context.RequestContext;
  * @author Gleywson
  */
 @Named(value = "osController")
-@SessionScoped
-public class OrdemServicoController implements Serializable {
+@RequestScoped
+public class OrdemServicoController {
 
     @Inject
     private DAO dao;

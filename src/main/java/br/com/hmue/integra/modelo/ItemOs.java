@@ -47,7 +47,4 @@ public class ItemOs {
     public String toString() {
         return "ItemOs{" + "id=" + id + ", horaInicial=" + horaInicial + ", horaFinal=" + horaFinal + '}';
     }
-
-    
-    
 }
