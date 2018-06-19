@@ -32,6 +32,10 @@
                     <h:outputText value="#{os.solicitante}"/>
                 </p:column>
 
+                <p:column headerText="Técnico">
+                    <h:outputText value="#{os.tecnico}"/>
+                </p:column>
+                
                 <p:column headerText="Setor">
                     <h:outputText value="#{os.setor}"/>
                 </p:column>
@@ -53,7 +57,7 @@
                     </div>
                 </f:facet>
             </p:dataTable>
-            <p:poll interval="10" update="oss" />
+            <p:poll interval="60" update="oss" />
         </h:form>
     </ui:define>
 

@@ -20,6 +20,7 @@ public class AvaliacaoOS implements Serializable {
     private String ramal;
     private String setor;
     private String status;
+    private String tecnico;
 
     public int getCodigo() {
         return codigo;
@@ -77,11 +78,22 @@ public class AvaliacaoOS implements Serializable {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "AvaliacaoOS{" + "codigo=" + codigo + ", solicitante=" + solicitante + ", setor=" + setor + '}' + "\n";
+    public String getTecnico() {
+        return tecnico;
     }
 
+    public void setTecnico(String tecnico) {
+        this.tecnico = tecnico;
+    }
+
+    @Override
+    public String toString() {
+        return "AvaliacaoOS{" + "codigo=" + codigo + ", dataPedido=" + dataPedido + ", servico=" + servico + ", solicitante=" + solicitante + ", ramal=" + ramal + ", setor=" + setor + ", status=" + status + ", tecnico=" + tecnico + '}';
+    }
+
+    
+    
+    
   
     
     

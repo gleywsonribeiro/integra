@@ -30,7 +30,7 @@ public class AvaliacaoOsDAO implements Serializable {
         ResultSet rs = null;
         try {
             connection = ConnectionFactory.createConnectionToOracle();
-            statement = connection.prepareStatement("select * from avaliacao_integra ai where ai.tp_status = ?");
+            statement = connection.prepareStatement("select * from avaliacao_integra ai where ai.tp_status = ? order by cd_os");
             statement.setString(1, "N"); // Não avaliada
             rs = statement.executeQuery();
             
@@ -44,6 +44,7 @@ public class AvaliacaoOsDAO implements Serializable {
                 avaliacao.setSetor(rs.getString("NM_SETOR"));
                 avaliacao.setSolicitante(rs.getString("NM_SOLICITANTE"));
                 avaliacao.setStatus(rs.getString("STATUS"));
+                avaliacao.setTecnico(rs.getString("TECNICO").split(" ")[0]);
                 
                 lista.add(avaliacao);
             }
@@ -72,6 +73,4 @@ public class AvaliacaoOsDAO implements Serializable {
         return lista;
     }
 
-    
-    
 }
