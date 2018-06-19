@@ -13,13 +13,13 @@
             <p>#{loginController.saudacao()}</p>
             <p>Use o menu acima</p>
         </div>
-        <p:panelGrid columns="2">
+        <p:panelGrid columns="2" rendered="#{loginController.gerente}">
             <p:panel>
-                <p:chart type="bar" model="#{graficoController.grafico}" style="height:300px; width: 800px" />
+                <p:chart type="bar" model="#{graficoController.graficoProducao}" style="height:400px; width: 800px" />
             </p:panel>
 
             <p:panel>
-                <p:chart type="pie" model="#{graficoController.grafico2}"  style="height:300px; width: 600px" />
+                <p:chart type="pie" model="#{graficoController.grafico2}"  style="height:400px; width: 600px" />
             </p:panel>
         </p:panelGrid>
     </ui:define>

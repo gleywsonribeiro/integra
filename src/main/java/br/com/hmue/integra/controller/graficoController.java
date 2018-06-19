@@ -6,11 +6,11 @@
 package br.com.hmue.integra.controller;
 
 import br.com.hmue.integra.modelo.FuncionarioOS;
+import br.com.hmue.integra.modelo.Producao;
 import br.com.hmue.integra.modelo.repositorio.DAO;
+import br.com.hmue.integra.modelo.repositorio.ProducaoDAO;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -35,8 +35,11 @@ public class graficoController {
 
     @Inject
     private DAO dao;
+    @Inject
+    private ProducaoDAO pdao;
     private BarChartModel grafico;
     private PieChartModel grafico2;
+    private BarChartModel graficoProducao;
 
     @PostConstruct
     public void init() {
@@ -52,8 +55,11 @@ public class graficoController {
         return grafico2;
     }
 
-   
+    public BarChartModel getGraficoProducao() {
+        return graficoProducao;
+    }
     
+     
     private BarChartModel initBarModel() {
         BarChartModel model = new BarChartModel();
 
@@ -66,32 +72,56 @@ public class graficoController {
             serie.set(funcionario.getPrimeiroNome(), funcionario.getQuantidade());
         }
         model.addSeries(serie);
+        model.setSeriesColors("006600");
 
+        return model;
+    }
+    
+    private BarChartModel initBarModelProducao() {
+        BarChartModel model = new BarChartModel();
+        
+        List<Producao> concluidas = pdao.getServicosConcluidos();
+
+       
+
+         ChartSeries avaliadas = new BarChartSeries();
+         ChartSeries naoAvaliadas = new BarChartSeries();
+         
+         avaliadas.setLabel("Avaliadas");
+         naoAvaliadas.setLabel("Não Avaliadas");
+         
+         for (Producao p : concluidas) {
+            avaliadas.set(p.getPrimeiroNomeFuncionario(), p.getAvaliadas());
+            naoAvaliadas.set(p.getPrimeiroNomeFuncionario(), p.getNaoAvaliadas());
+        }
+         
+        model.addSeries(avaliadas);
+        model.addSeries(naoAvaliadas);
+        model.setSeriesColors("006600, 990000");
+        model.setStacked(true);
         return model;
     }
 
     private void createBarModel() {
         grafico = initBarModel();
-
+        graficoProducao = initBarModelProducao();
+        
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         Date data = new Date();
         DateFormat df2 = new SimpleDateFormat("MMMMM", new Locale("pt", "BR"));
 
         grafico.setTitle("Serviços Concluídos por Funcionario - " + df2.format(data));
-        //grafico.setLegendPosition("ne");
-        //grafico.setBarWidth(5);
-        //grafico.setBarPadding(1);
-        //grafico.setBarMargin(10);
-        
-
-        Axis xAxis = grafico.getAxis(AxisType.X);
+        graficoProducao.setTitle("Produção por Funcionário - " + df2.format(data));
+          
+        Axis xAxis = graficoProducao.getAxis(AxisType.X);
         xAxis.setLabel("Colaboradores");
 
-        Axis yAxis = grafico.getAxis(AxisType.Y);
+        Axis yAxis = graficoProducao.getAxis(AxisType.Y);
         yAxis.setLabel("Qtd de Serviços Concluídos");
+        
         grafico.setAnimate(true);
-//        yAxis.setMin(0);
-//        yAxis.setMax(200);
+        graficoProducao.setLegendPosition("ne");
+  
     }
     
     private void createPieModel() {

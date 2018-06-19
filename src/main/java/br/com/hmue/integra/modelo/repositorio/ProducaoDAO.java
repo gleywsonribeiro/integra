@@ -7,6 +7,7 @@ package br.com.hmue.integra.modelo.repositorio;
 
 import br.com.hmue.integra.factory.ConnectionFactory;
 import br.com.hmue.integra.modelo.AvaliacaoOS;
+import br.com.hmue.integra.modelo.Producao;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,36 +22,31 @@ import java.util.logging.Logger;
  *
  * @author Gleywson
  */
-public class AvaliacaoOsDAO implements Serializable {
+public class ProducaoDAO implements Serializable {
     
-    public List<AvaliacaoOS> getAvaliacoesPendentes() {
+    public List<Producao> getServicosConcluidos() {
         Connection connection = null;
-        List<AvaliacaoOS> lista = new ArrayList<AvaliacaoOS>();
+        List<Producao> lista = new ArrayList<Producao>();
         PreparedStatement statement = null;
         ResultSet rs = null;
         try {
             connection = ConnectionFactory.createConnectionToOracle();
-            statement = connection.prepareStatement("select * from avaliacao_integra ai where ai.tp_status = ?");
-            statement.setString(1, "N"); // Não avaliada
+            statement = connection.prepareStatement("SELECT * FROM PRODUCAO_INTEGRA P ORDER BY (NAO_AVALIADAS + AVALIADAS) DESC");
             rs = statement.executeQuery();
             
             while (rs.next()) {
-                AvaliacaoOS avaliacao = new AvaliacaoOS();
+                Producao producao = new Producao();
                 
-                avaliacao.setCodigo(rs.getInt("CD_OS"));
-                avaliacao.setDataPedido(rs.getTimestamp("DT_PEDIDO"));
-                avaliacao.setRamal(rs.getString("DS_RAMAL"));
-                avaliacao.setServico(rs.getString("DS_SERVICO"));
-                avaliacao.setSetor(rs.getString("NM_SETOR"));
-                avaliacao.setSolicitante(rs.getString("NM_SOLICITANTE"));
-                avaliacao.setStatus(rs.getString("STATUS"));
+                producao.setFuncionario(rs.getString("funcionario"));
+                producao.setAvaliadas(rs.getInt("avaliadas"));
+                producao.setNaoAvaliadas(rs.getInt("nao_avaliadas"));
                 
-                lista.add(avaliacao);
+                lista.add(producao);
             }
             
             
         } catch (SQLException ex) {
-            Logger.getLogger(AvaliacaoOsDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProducaoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                  if (statement != null) {
@@ -66,7 +62,7 @@ public class AvaliacaoOsDAO implements Serializable {
                     rs.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(AvaliacaoOsDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ProducaoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return lista;

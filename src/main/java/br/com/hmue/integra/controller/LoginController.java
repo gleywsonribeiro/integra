@@ -40,6 +40,13 @@ public class LoginController implements Serializable {
             usuario.setNome("Administrador");
             httpSession.setAttribute("currentUser", usuario);
             return "index?faces-redirect=true";
+        } else if (usuario.getLogin().equals("gerente") && usuario.getSenha().equals("Metropolit@no")) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpSession httpSession = (HttpSession) context.getExternalContext().getSession(false);
+            //this.usuario = user;
+            usuario.setNome("Gerente");
+            httpSession.setAttribute("currentUser", usuario);
+            return "index?faces-redirect=true";
         } else {
             JsfUtil.addErrorMessage("Usuario ou senha inválidos!");
             return "";
@@ -81,5 +88,9 @@ public class LoginController implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public boolean isGerente() {
+        return usuario.getLogin().equals("gerente");
     }
 }
