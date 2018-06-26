@@ -15,17 +15,7 @@ public class Producao {
     private String funcionario;
     private int avaliadas;
     private int naoAvaliadas;
-
-    public Producao(String funcioanrio, int avaliadas, int naoAvaliadas) {
-        this.funcionario = funcioanrio;
-        this.avaliadas = avaliadas;
-        this.naoAvaliadas = naoAvaliadas;
-    }
-
-    public Producao() {
-    }
-    
-    
+    private float tempo;
 
     public String getFuncionario() {
         return funcionario;
@@ -50,7 +40,15 @@ public class Producao {
     public void setNaoAvaliadas(int naoAvaliadas) {
         this.naoAvaliadas = naoAvaliadas;
     }
-    
+
+    public float getTempo() {
+        return tempo;
+    }
+
+    public void setTempo(float tempo) {
+        this.tempo = tempo;
+    }
+   
     public String getPrimeiroNomeFuncionario() {
         return getFuncionario().split(" ")[0];
     }

@@ -5,7 +5,6 @@
  */
 package br.com.hmue.integra.controller;
 
-import br.com.hmue.integra.modelo.FuncionarioOS;
 import br.com.hmue.integra.modelo.Producao;
 import br.com.hmue.integra.modelo.repositorio.DAO;
 import br.com.hmue.integra.modelo.repositorio.ProducaoDAO;
@@ -23,7 +22,6 @@ import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.BarChartSeries;
 import org.primefaces.model.chart.ChartSeries;
-import org.primefaces.model.chart.PieChartModel;
 
 /**
  *
@@ -37,64 +35,41 @@ public class graficoController {
     private DAO dao;
     @Inject
     private ProducaoDAO pdao;
-    private BarChartModel grafico;
-    private PieChartModel grafico2;
+
     private BarChartModel graficoProducao;
+    private BarChartModel graficoProducaoTemporal;
 
     @PostConstruct
     public void init() {
         createBarModel();
-        createPieModel();
-    }
-
-    public BarChartModel getGrafico() {
-        return grafico;
-    }
-
-    public PieChartModel getGrafico2() {
-        return grafico2;
     }
 
     public BarChartModel getGraficoProducao() {
         return graficoProducao;
     }
-    
-     
-    private BarChartModel initBarModel() {
-        BarChartModel model = new BarChartModel();
 
-        List<FuncionarioOS> funcionarios = dao.OSPorFuncionario();
-
-         ChartSeries serie = new BarChartSeries();
-         
-        for (FuncionarioOS funcionario : funcionarios) {
-           //serie.setLabel(funcionario.getPrimeiroNome());
-            serie.set(funcionario.getPrimeiroNome(), funcionario.getQuantidade());
-        }
-        model.addSeries(serie);
-        model.setSeriesColors("006600");
-
-        return model;
+    public BarChartModel getGraficoProducaoTemporal() {
+        return graficoProducaoTemporal;
     }
+
+    
     
     private BarChartModel initBarModelProducao() {
         BarChartModel model = new BarChartModel();
-        
+
         List<Producao> concluidas = pdao.getServicosConcluidos();
 
-       
+        ChartSeries avaliadas = new BarChartSeries();
+        ChartSeries naoAvaliadas = new BarChartSeries();
 
-         ChartSeries avaliadas = new BarChartSeries();
-         ChartSeries naoAvaliadas = new BarChartSeries();
-         
-         avaliadas.setLabel("Avaliadas");
-         naoAvaliadas.setLabel("Não Avaliadas");
-         
-         for (Producao p : concluidas) {
+        avaliadas.setLabel("Avaliadas");
+        naoAvaliadas.setLabel("Não Avaliadas");
+
+        for (Producao p : concluidas) {
             avaliadas.set(p.getPrimeiroNomeFuncionario(), p.getAvaliadas());
             naoAvaliadas.set(p.getPrimeiroNomeFuncionario(), p.getNaoAvaliadas());
         }
-         
+
         model.addSeries(avaliadas);
         model.addSeries(naoAvaliadas);
         model.setSeriesColors("006600, 990000");
@@ -103,38 +78,54 @@ public class graficoController {
     }
 
     private void createBarModel() {
-        grafico = initBarModel();
+
         graficoProducao = initBarModelProducao();
-        
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        Date data = new Date();
+        graficoProducaoTemporal = initBarModelProducaoTemporal();
+
+        //DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
         DateFormat df2 = new SimpleDateFormat("MMMMM", new Locale("pt", "BR"));
 
-        grafico.setTitle("Serviços Concluídos por Funcionario - " + df2.format(data));
-        graficoProducao.setTitle("Produção por Funcionário - " + df2.format(data));
-          
+        graficoProducao.setTitle("Produção por Funcionário - " + df2.format(date));
+        graficoProducaoTemporal.setTitle("Produção por Funcionário (Tempo) - " + df2.format(date));
+
         Axis xAxis = graficoProducao.getAxis(AxisType.X);
         xAxis.setLabel("Colaboradores");
 
         Axis yAxis = graficoProducao.getAxis(AxisType.Y);
         yAxis.setLabel("Qtd de Serviços Concluídos");
-        
-        grafico.setAnimate(true);
-        graficoProducao.setLegendPosition("ne");
-  
-    }
-    
-    private void createPieModel() {
-        grafico2 = new PieChartModel();
-        List<FuncionarioOS> funcionarios = dao.OSPorFuncionario();
-        
-        for (FuncionarioOS funcionario : funcionarios) {
-             grafico2.set(funcionario.getNome(), funcionario.getQuantidade());
-        }
-       
-        grafico2.setTitle("Serviços por Funcionário");
-        grafico2.setLegendPosition("w");
 
+        graficoProducao.setLegendPosition("ne");
+        
+        //Configuracao do grafico de tempo
+        
+        Axis xAxisT = graficoProducaoTemporal.getAxis(AxisType.X);
+        xAxisT.setLabel("Colaboradores");
+
+        Axis yAxisT = graficoProducaoTemporal.getAxis(AxisType.Y);
+        yAxisT.setLabel("Qtd de Horas");
+
+        graficoProducaoTemporal.setLegendPosition("ne");
+
+    }
+
+    private BarChartModel initBarModelProducaoTemporal() {
+        BarChartModel model = new BarChartModel();
+
+        List<Producao> producoes = pdao.getTempoPorTecnico();
+
+        ChartSeries tempoPorTecnico = new BarChartSeries();
+
+        tempoPorTecnico.setLabel("Tempo por Técnico (horas)");
+
+        for (Producao p : producoes) {
+            tempoPorTecnico.set(p.getPrimeiroNomeFuncionario(), p.getTempo());
+        }
+
+        model.addSeries(tempoPorTecnico);
+        model.setSeriesColors("0059b3");
+        
+        return model;
     }
 
 }
