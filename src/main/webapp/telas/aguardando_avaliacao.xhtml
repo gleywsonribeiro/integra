@@ -15,41 +15,34 @@
             <h:outputText value="Ordens de Serviço Concluídas Aguardando Avaliação" styleClass="titulo"/>
 
             <p:dataTable id="oss" value="#{avaliacaoController2.lista}" scrollable="true" scrollHeight="600" reflow="true"
-                         var="os" style="margin-top: 20px;" emptyMessage="Não há registros." >
+                         var="os" style="margin-top: 20px;" emptyMessage="Não há registros." paginator="true" rows="20" >
 
                 <p:column headerText="Código" style="text-align: center; width: 100px;">
-                    <h:outputText value="#{os.codigo}" id="cdOS"/> 
+                    <h:outputText value="#{os.codigo}" id="cdOS" style="color: #990000; font-weight: bold;"/> 
                     <p:tooltip value="#{os.servico}" for="cdOS"/>
                 </p:column>
 
-                <p:column headerText="Data Pedido" >
+                <p:column headerText="Data Pedido" sortBy="#{os.dataPedido}">
                     <h:outputText value="#{os.dataPedido}" style="font-weight: bold; font-size: 11px">
                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                     </h:outputText>
                 </p:column>
 
-                <p:column headerText="Solicitante">
+                <p:column headerText="Solicitante" sortBy="#{os.solicitante}">
                     <h:outputText value="#{os.solicitante}"/>
                 </p:column>
 
-                <p:column headerText="Técnico">
+                <p:column headerText="Técnico" sortBy="#{os.tecnico}">
                     <h:outputText value="#{os.tecnico}"/>
                 </p:column>
                 
-                <p:column headerText="Setor">
+                <p:column headerText="Setor" sortBy="#{os.setor}">
                     <h:outputText value="#{os.setor}"/>
                 </p:column>
-
-                
 
                 <p:column headerText="Ramal" style="text-align: center">
                     <h:outputText value="#{os.ramal}"/>
                 </p:column>
-
-                <p:column headerText="Status" style="text-align: center">
-                    <h:outputText value="#{os.status}"/>
-                </p:column>
-
 
                 <f:facet name="footer">
                     <div align="left">
@@ -57,7 +50,7 @@
                     </div>
                 </f:facet>
             </p:dataTable>
-            <p:poll interval="60" update="oss" />
+            <p:poll interval="60" listener="#{avaliacaoController2.atualizaConsulta()}" update="oss" />
         </h:form>
     </ui:define>
 

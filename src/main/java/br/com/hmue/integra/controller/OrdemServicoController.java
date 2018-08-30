@@ -7,10 +7,14 @@ package br.com.hmue.integra.controller;
 
 import br.com.hmue.integra.modelo.repositorio.DAO;
 import br.com.hmue.integra.modelo.OrdemServico;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -26,8 +30,8 @@ import org.primefaces.context.RequestContext;
  * @author Gleywson
  */
 @Named(value = "osController")
-@RequestScoped
-public class OrdemServicoController {
+@ViewScoped
+public class OrdemServicoController implements Serializable{
 
     @Inject
     private DAO dao;
@@ -35,9 +39,15 @@ public class OrdemServicoController {
     private OrdemServico os;
     private List<OrdemServico> servicos;
     private List<OrdemServico> outrosServicos;
+    
+    @PostConstruct
+    public void init() {
+        servicos = dao.getOSsPendentes();
+    }
 
     public OrdemServicoController() {
         this.os = new OrdemServico();
+        
     }
 
     public OrdemServico getOs() {
@@ -54,7 +64,7 @@ public class OrdemServicoController {
     }
 
     public List<OrdemServico> getServicos() {
-        servicos = dao.getOSsPendentes();
+//        servicos = dao.getOSsPendentes();
         return servicos;
     }
 
@@ -103,7 +113,7 @@ public class OrdemServicoController {
         parametros.put("cd_os", this.os.getOs());
     }
 
-    public void listener() {
-//        System.out.println("ok");
+    public void atualizaConsulta() {
+        init();
     }
 }

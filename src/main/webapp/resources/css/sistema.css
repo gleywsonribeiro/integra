@@ -10,6 +10,8 @@ span {
     font-size: 12px;
 }
 
+
+
 .pendente-atraso {
     background-color: #f7d4d4 ;
     /*color: black;*/
@@ -57,7 +59,6 @@ input, textarea {
     top:20px;
     left:40%;
 }
-
 
 .ui-selectonelistbox .ui-selectlistbox-item, .ui-selectmanymenu .ui-selectlistbox-item, .ui-multiselectlistbox .ui-multiselectlistbox-item {
     font-size: 12px !important;

@@ -12,8 +12,9 @@
 
     <ui:define name="corpo">
         <h:form>
-            <p:dialog modal="true" widgetVar="statusDialogo" header="Aguarde..." draggable="false" closable="false" resizable="false">
+            <p:dialog modal="true" widgetVar="statusDialogo" header="Aguarde..." draggable="false" closable="false"  resizable="false">
                 <p:graphicImage library="imagens" name="ajax-loader.gif" />
+                <p:ajax/>
             </p:dialog>
             <h:outputText value="Monitor de Ordens de Serviços Pendentes" styleClass="titulo"/>
 
@@ -37,28 +38,29 @@
             </div>
 
             <p:dataTable id="oss" value="#{osController.servicos}" scrollable="true" scrollHeight="600" reflow="true"
-                         var="os" style="margin-top: 20px;" emptyMessage="Não há registros." >
+                         var="os" style="margin-top: 20px;" emptyMessage="Não há registros." widgetVar="servicosTable">
 
-                <p:column headerText="Código" style="text-align: center; width: 100px;">
-                    <h:outputText value="#{os.os}" id="cdOS" style="color: #990000; font-weight: bold;" /> 
+
+                <p:column headerText="Código" style="text-align: center; width: 100px;" sortBy="#{os.os}">
+                    <h:outputText value="#{os.os}" id="cdOS" style="color: #990000; font-weight: bold;"/> 
                     <p:tooltip value="#{os.servico}" for="cdOS"/>
                 </p:column>
 
-                <p:column headerText="Tempo Abertura" >
+                <p:column headerText="Tempo Abertura">
                     <h:outputText value="#{os.tempoAbertura}"/>
                 </p:column>
 
-                <p:column headerText="Data Pedido" >
+                <p:column headerText="Data Pedido" sortBy="#{os.dtPedido}">
                     <h:outputText value="#{os.dtPedido}" style="font-weight: bold; font-size: 11px">
                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                     </h:outputText>
                 </p:column>
 
-                <p:column headerText="Nome">
+                <p:column headerText="Nome" sortBy="#{os.nome}">
                     <h:outputText value="#{os.nome}" id="nome"/>
                 </p:column>
 
-                <p:column headerText="Setor">
+                <p:column headerText="Setor" sortBy="#{os.setor}">
                     <h:outputText value="#{os.setor}"/>
                 </p:column>
 
@@ -74,7 +76,7 @@
                     <h:outputText value="#{os.status}"/>
                 </p:column>
 
-                <p:column headerText="Responsável">
+                <p:column headerText="Responsável" sortBy="#{os.tecResponsavel}">
                     <h:outputText value="#{os.tecResponsavel}"/>
                 </p:column>
 
@@ -91,7 +93,7 @@
                     </div>
                 </f:facet>
             </p:dataTable>
-            <p:poll interval="60" listener="#{osController.listener()}" update="oss" />
+            <p:poll interval="60" listener="#{osController.atualizaConsulta()}" update="oss" />
         </h:form>
     </ui:define>
 
