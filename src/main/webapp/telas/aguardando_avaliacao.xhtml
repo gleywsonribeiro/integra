@@ -17,36 +17,36 @@
             <p:dataTable id="oss" value="#{avaliacaoController2.lista}" scrollable="true" scrollHeight="600" reflow="true"
                          var="os" style="margin-top: 20px;" emptyMessage="Não há registros." paginator="true" rows="20" >
 
-                <p:column headerText="Código" style="text-align: center; width: 100px;">
+                <p:column headerText="Código" style="text-align: center; width: 100px;" filterBy="#{os.codigo}" filterMatchMode="contains" >
                     <h:outputText value="#{os.codigo}" id="cdOS" style="color: #990000; font-weight: bold;"/> 
                     <p:tooltip value="#{os.servico}" for="cdOS"/>
                 </p:column>
 
-                <p:column headerText="Data Pedido" sortBy="#{os.dataPedido}">
+                <p:column headerText="Data Pedido" sortBy="#{os.dataPedido}" >
                     <h:outputText value="#{os.dataPedido}" style="font-weight: bold; font-size: 11px">
                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                     </h:outputText>
                 </p:column>
-
-                <p:column headerText="Solicitante" sortBy="#{os.solicitante}">
-                    <h:outputText value="#{os.solicitante}"/>
-                </p:column>
-
-                <p:column headerText="Técnico" sortBy="#{os.tecnico}">
-                    <h:outputText value="#{os.tecnico}"/>
-                </p:column>
                 
-                <p:column headerText="Setor" sortBy="#{os.setor}">
+                <p:column headerText="Setor" sortBy="#{os.setor}" filterBy="#{os.setor}" filterMatchMode="contains">
                     <h:outputText value="#{os.setor}"/>
                 </p:column>
 
+                <p:column headerText="Solicitante" sortBy="#{os.solicitante}" filterBy="#{os.solicitante}" filterMatchMode="contains">
+                    <h:outputText value="#{os.solicitante}"/>
+                </p:column>
+
+                <p:column headerText="Técnico" sortBy="#{os.tecnico}" filterBy="#{os.tecnico}" filterMatchMode="contains">
+                    <h:outputText value="#{os.tecnico}"/>
+                </p:column>
+                
                 <p:column headerText="Ramal" style="text-align: center">
                     <h:outputText value="#{os.ramal}"/>
                 </p:column>
 
                 <f:facet name="footer">
                     <div align="left">
-                        <h:outputText value="Total a Avaliar: #{avaliacaoController2.lista.size()}"/>
+                        <h:outputText id="total" value="Total a Avaliar: #{avaliacaoController2.lista.size()}"/>
                     </div>
                 </f:facet>
             </p:dataTable>
