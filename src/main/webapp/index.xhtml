@@ -14,29 +14,27 @@
             <p>#{loginController.saudacao()}</p>
             <p>Use o menu acima</p>
         </div>
-        <div style="height:300px">
-            <h:form>
-                <p:dashboard id="board" model="#{dashBoardController.model}">
-                    <p:panel id="preventivas" header="Preventivas" closable="true" toggleable="true">
-                        <h:outputText value="#{osController.servicosPreventivos.size()}"/>
-                    </p:panel>
-                    
-                    <p:panel id="aguardando" header="Aguardando" closable="true" toggleable="true">
-                        <h:outputText value="#{osController.outrosServicos.size()}"/>
-                    </p:panel>
-                    
-                    <p:panel id="pendentes" header="Pendentes" closable="true" toggleable="true">
-                        <h:outputText value="#{osController.servicos.size()}"/>
-                    </p:panel>
-                    
-                    <p:panel id="servicoDia" header="Serviços do Dia" closable="true" toggleable="true">
-                        <h:outputText value="#{osController.servidosDoDia.size()}"/>
-                    </p:panel>
-                    
-                </p:dashboard>
-                <p:poll interval="60" listener="#{osController.atualizaConsulta()}" update="board" />
-            </h:form>
-        </div>
+
+        <h:form>
+            <p:dashboard id="board" model="#{dashBoardController.model}" >
+                <p:panel id="preventivas" header="Preventivas" closable="true" toggleable="true">
+                    <h:outputText value="#{osController.servicosPreventivos.size()}" styleClass="dashBoard"/>
+                </p:panel>
+
+                <p:panel id="aguardando" header="Aguardando" closable="true" toggleable="true">
+                    <h:outputText value="#{osController.outrosServicos.size()}" styleClass="dashBoard"/>
+                </p:panel>
+
+                <p:panel id="pendentes" header="Pendentes" closable="true" toggleable="true">
+                    <h:outputText value="#{osController.servicos.size()}" styleClass="dashBoard"/>
+                </p:panel>
+
+                <p:panel id="servicoDia" header="Serviços do Dia" closable="true" toggleable="true">
+                    <h:outputText value="#{osController.servidosDoDia.size()}" styleClass="dashBoard"/>
+                </p:panel>
+            </p:dashboard>
+            <p:poll interval="60" listener="#{osController.atualizaConsulta()}" update="board" />
+        </h:form>
 
         <p:panelGrid columns="2" rendered="#{loginController.gerente}">
             <p:panel>
@@ -48,8 +46,8 @@
             </p:panel>
 
         </p:panelGrid>
-        
-        
+
+
 
     </ui:define>
 
