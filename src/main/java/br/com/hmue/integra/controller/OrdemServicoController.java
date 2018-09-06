@@ -43,6 +43,7 @@ public class OrdemServicoController implements Serializable {
     @PostConstruct
     public void init() {
         servicos = dao.getOSsPendentes();
+        outrosServicos = dao.aguardandoAtencao();
     }
 
     public OrdemServicoController() {
