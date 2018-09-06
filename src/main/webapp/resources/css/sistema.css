@@ -39,6 +39,11 @@ input, textarea {
     color: #0f1980;
 }
 
+.ui-panel-content {
+    font-size: 30px !important;
+    color: #006666;
+}
+
 .pagamento {
     font-size: x-large; 
     font-weight: 400; 
@@ -159,62 +164,62 @@ h1 {
 */
 .menu-sistema .ui-icon-triangle-1-s {
     background: url(#{resource['imagens:seta-para-baixo.png']}) no-repeat;
-}
+        }
 
-/*
+        /*
 
-/*other*/
+        /*other*/
 
-.ui-widget, .ui-state-default {
-    font-size: 12px !important;
-}
-.ui-layout-north {
-    z-index: 20 !important;
-    overflow: visible !important;;
-}
-.ui-layout-north .ui-layout-unit-content {
-    overflow: visible !important;
-}
-.ui-widget-header {
-    /*text-align: center;*/
-    /*text-transform: uppercase;*/
-}
+        .ui-widget, .ui-state-default {
+        font-size: 12px !important;
+        }
+        .ui-layout-north {
+        z-index: 20 !important;
+        overflow: visible !important;;
+        }
+        .ui-layout-north .ui-layout-unit-content {
+        overflow: visible !important;
+        }
+        .ui-widget-header {
+        /*text-align: center;*/
+        /*text-transform: uppercase;*/
+        }
 
-.negrito {
-    font-weight: bold;
-}
-.ui-datatable-data {
-    font-size: 11px !important;
-}
-.pendente {
-    /*background-color: crimson;*/
-    color: red;
-}
+        .negrito {
+        font-weight: bold;
+        }
+        .ui-datatable-data {
+        font-size: 11px !important;
+        }
+        .pendente {
+        /*background-color: crimson;*/
+        color: red;
+        }
 
-.pago{
-    /*background-color: green;*/ 
-    color: green;
-}
+        .pago{
+        /*background-color: green;*/ 
+        color: green;
+        }
 
-.ui-button {
-    height: 24px;
-}
+        .ui-button {
+        height: 24px;
+        }
 
-.email{
-    text-transform: lowercase;
-}
+        .email{
+        text-transform: lowercase;
+        }
 
-.fundo {
-    -webkit-background-size: cover;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    overflow: hidden
-}
+        .fundo {
+        -webkit-background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        overflow: hidden
+        }
 
-.background {
-    background-color: background;
-}
+        .background {
+        background-color: background;
+        }
 
-.ui-state-disabled {
-    opacity: .60 !important;
-}
+        .ui-state-disabled {
+        opacity: .60 !important;
+        }

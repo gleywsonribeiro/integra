@@ -31,7 +31,7 @@ import org.primefaces.context.RequestContext;
  */
 @Named(value = "osController")
 @ViewScoped
-public class OrdemServicoController implements Serializable{
+public class OrdemServicoController implements Serializable {
 
     @Inject
     private DAO dao;
@@ -39,7 +39,7 @@ public class OrdemServicoController implements Serializable{
     private OrdemServico os;
     private List<OrdemServico> servicos;
     private List<OrdemServico> outrosServicos;
-    
+
     @PostConstruct
     public void init() {
         servicos = dao.getOSsPendentes();
@@ -47,7 +47,7 @@ public class OrdemServicoController implements Serializable{
 
     public OrdemServicoController() {
         this.os = new OrdemServico();
-        
+
     }
 
     public OrdemServico getOs() {
@@ -64,7 +64,7 @@ public class OrdemServicoController implements Serializable{
     }
 
     public List<OrdemServico> getServicos() {
-//        servicos = dao.getOSsPendentes();
+        servicos = dao.getOSsPendentes();
         return servicos;
     }
 
@@ -77,7 +77,7 @@ public class OrdemServicoController implements Serializable{
         servicos = dao.getServicosPreventivos();
         return servicos;
     }
-    
+
     public void abrirView() {
         Map<String, Object> opcoes = new HashMap<String, Object>();
         opcoes.put("modal", true);

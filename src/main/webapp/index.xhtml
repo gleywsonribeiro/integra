@@ -2,7 +2,8 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="./WEB-INF/template/layout.xhtml"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="titulo">
         SITI - Sistema Integrado de TI
@@ -13,6 +14,30 @@
             <p>#{loginController.saudacao()}</p>
             <p>Use o menu acima</p>
         </div>
+        <div style="height:300px">
+            <h:form>
+                <p:dashboard id="board" model="#{dashBoardController.model}">
+                    <p:panel id="preventivas" header="Preventivas" closable="true" toggleable="true">
+                        <h:outputText value="#{osController.servicosPreventivos.size()}"/>
+                    </p:panel>
+                    
+                    <p:panel id="aguardando" header="Aguardando" closable="true" toggleable="true">
+                        <h:outputText value="#{osController.outrosServicos.size()}"/>
+                    </p:panel>
+                    
+                    <p:panel id="pendentes" header="Pendentes" closable="true" toggleable="true">
+                        <h:outputText value="#{osController.servicos.size()}"/>
+                    </p:panel>
+                    
+                    <p:panel id="servicoDia" header="Serviços do Dia" closable="true" toggleable="true">
+                        <h:outputText value="#{osController.servidosDoDia.size()}"/>
+                    </p:panel>
+                    
+                </p:dashboard>
+                <p:poll interval="60" listener="#{osController.atualizaConsulta()}" update="board" />
+            </h:form>
+        </div>
+
         <p:panelGrid columns="2" rendered="#{loginController.gerente}">
             <p:panel>
                 <p:chart type="bar" model="#{graficoController.graficoProducao}" style="height:400px; width: 800px" />
@@ -21,8 +46,11 @@
             <p:panel>
                 <p:chart type="bar" model="#{graficoController.graficoProducaoTemporal}" style="height:400px; width: 800px"/>
             </p:panel>
-            
+
         </p:panelGrid>
+        
+        
+
     </ui:define>
 
 </ui:composition>
