@@ -10,7 +10,7 @@
     </ui:define>
 
     <ui:define name="corpo">
-        <div style="margin-left: 50px">
+        <div id="adm" style="margin-left: 50px">
             <p>#{loginController.saudacao()}</p>
             <p>Use o menu acima</p>
         </div>
@@ -18,19 +18,27 @@
         <h:form>
             <p:dashboard id="board" model="#{dashBoardController.model}" >
                 <p:panel id="preventivas" header="Preventivas" closable="true" toggleable="true">
-                    <h:outputText value="#{osController.servicosPreventivos.size()}" styleClass="dashBoard"/>
+                    <p:link outcome="/telas/preventivas">
+                        <h:outputText value="#{osController.servicosPreventivos.size()}" styleClass="dashBoard"/>
+                    </p:link>
                 </p:panel>
 
                 <p:panel id="aguardando" header="Aguardando" closable="true" toggleable="true">
-                    <h:outputText value="#{osController.outrosServicos.size()}" styleClass="dashBoard"/>
+                    <p:link outcome="/telas/aguardando">
+                        <h:outputText value="#{osController.outrosServicos.size()}" styleClass="dashBoard"/>
+                    </p:link>
                 </p:panel>
 
                 <p:panel id="pendentes" header="Pendentes" closable="true" toggleable="true">
-                    <h:outputText value="#{osController.servicos.size()}" styleClass="dashBoard"/>
+                    <p:link outcome="/telas/servicos">
+                        <h:outputText value="#{osController.servicos.size()}" styleClass="dashBoard"/>
+                    </p:link>
                 </p:panel>
 
                 <p:panel id="servicoDia" header="Serviços do Dia" closable="true" toggleable="true">
-                    <h:outputText value="#{osController.servidosDoDia.size()}" styleClass="dashBoard"/>
+                    <p:link outcome="/telas/osdia">
+                        <h:outputText value="#{osController.servidosDoDia.size()}" styleClass="dashBoard"/>
+                    </p:link>
                 </p:panel>
             </p:dashboard>
             <p:poll interval="60" listener="#{osController.atualizaConsulta()}" update="board" />

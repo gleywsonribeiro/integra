@@ -10,7 +10,13 @@ span {
     font-size: 12px;
 }
 
-
+#adm p {
+    font-family: Helvetica, Arial, sans-serif;
+    /*font-size: 24px;*/
+    font-weight: bold;
+    line-height: .50;
+    color: #006666;
+}
 
 .pendente-atraso {
     background-color: #f7d4d4 ;
@@ -42,6 +48,9 @@ input, textarea {
 .dashboard {
     font-size: 30px !important;
     color: #006666;
+}
+a {
+    text-decoration: none !important;
 }
 
 .pagamento {

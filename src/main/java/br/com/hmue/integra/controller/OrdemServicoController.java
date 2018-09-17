@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -30,7 +28,7 @@ import org.primefaces.context.RequestContext;
  * @author Gleywson
  */
 @Named(value = "osController")
-@ViewScoped
+@RequestScoped
 public class OrdemServicoController implements Serializable {
 
     @Inject
