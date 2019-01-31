@@ -53,6 +53,12 @@ public class TipoOS {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "TipoOS{" + "codigo=" + codigo + ", Descricao=" + Descricao + '}';
+    }
+    
     
     
 }

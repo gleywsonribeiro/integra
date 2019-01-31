@@ -7,10 +7,10 @@ import java.sql.SQLException;
 public class SingleConnection {
 
     private static final String USERNAME = "dbamv";
-    private static final String PASSWORD = "dbamv";
+    private static final String PASSWORD = "prosaude1973";
     private static final String SERVER = "10.79.100.15";
     private static final String PORT = "1521";
-    private static final String DATABASE = "sml";
+    private static final String DATABASE = "prd";
     //Dados de caminho, porta e nome da base de dados que irá ser feita a conexão
     private static final String DATABASE_URL = "jdbc:oracle:thin:@" + SERVER + ":" + PORT + ":" + DATABASE;
 

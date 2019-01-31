@@ -53,6 +53,10 @@ a {
     text-decoration: none !important;
 }
 
+.toolbar {
+    margin-bottom: 20px;
+}
+
 .pagamento {
     font-size: x-large; 
     font-weight: 400; 
@@ -165,70 +169,65 @@ h1 {
     color: #ffffff !important;
 }
 
+.ui-widget, .ui-state-default {
+    font-size: 12px !important;
+}
+.ui-layout-north {
+    z-index: 20 !important;
+    overflow: visible !important;;
+}
+.ui-layout-north .ui-layout-unit-content {
+    overflow: visible !important;
+}
+.ui-widget-header {
+    /*text-align: center;*/
+    /*text-transform: uppercase;*/
+}
+
+.negrito {
+    font-weight: bold;
+}
+.ui-datatable-data {
+    font-size: 11px !important;
+}
+.pendente {
+    /*background-color: crimson;*/
+    color: red;
+}
+
+.pago{
+    /*background-color: green;*/ 
+    color: green;
+}
+
+.ui-button {
+    height: 24px;
+}
+
+.email{
+    text-transform: lowercase;
+}
+
+.fundo {
+    -webkit-background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    overflow: hidden
+}
+
+.background {
+    background-color: background;
+}
+
+.ui-state-disabled {
+    opacity: .60 !important;
+}
 
 .meumenu .ui-menu-child{
     width: 250px !important;
-}/*
+}
 
-*/
 .menu-sistema .ui-icon-triangle-1-s {
-    background: url(#{resource['imagens:seta-para-baixo.png']}) no-repeat;
-        }
+    background: url(#{resource[ 'imagens:seta-para-baixo.png']}) no-repeat;
+}
 
-        /*
-
-        /*other*/
-
-        .ui-widget, .ui-state-default {
-        font-size: 12px !important;
-        }
-        .ui-layout-north {
-        z-index: 20 !important;
-        overflow: visible !important;;
-        }
-        .ui-layout-north .ui-layout-unit-content {
-        overflow: visible !important;
-        }
-        .ui-widget-header {
-        /*text-align: center;*/
-        /*text-transform: uppercase;*/
-        }
-
-        .negrito {
-        font-weight: bold;
-        }
-        .ui-datatable-data {
-        font-size: 11px !important;
-        }
-        .pendente {
-        /*background-color: crimson;*/
-        color: red;
-        }
-
-        .pago{
-        /*background-color: green;*/ 
-        color: green;
-        }
-
-        .ui-button {
-        height: 24px;
-        }
-
-        .email{
-        text-transform: lowercase;
-        }
-
-        .fundo {
-        -webkit-background-size: cover;
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-        overflow: hidden
-        }
-
-        .background {
-        background-color: background;
-        }
-
-        .ui-state-disabled {
-        opacity: .60 !important;
-        }

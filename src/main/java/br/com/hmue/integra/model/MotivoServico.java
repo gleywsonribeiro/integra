@@ -12,6 +12,7 @@ package br.com.hmue.integra.model;
 public class MotivoServico {
     private Long codigo; //cd_mot_serv
     private String descricao; //ds_mot_serv
+    private Long codigoTipoOs;
 
     public Long getCodigo() {
         return codigo;
@@ -27,6 +28,14 @@ public class MotivoServico {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Long getCodigoTipoOs() {
+        return codigoTipoOs;
+    }
+
+    public void setCodigoTipoOs(Long codigoTipoOs) {
+        this.codigoTipoOs = codigoTipoOs;
     }
     
     

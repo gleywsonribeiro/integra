@@ -1,59 +1,89 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Ordem de Serviço detalhada</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet library="css" name="sistema.css"/>
-        <h:outputScript library="scripts" name="calendario.js"/>
-    </h:head>
-    <h:body>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template/layout.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    
+    <ui:define name="titulo">
+        Monitor de Servicos
+    </ui:define>
+
+    <ui:define name="corpo">
         <h:form id="form">
             <div class="ui-fluid">
-                <p:panel>
-                    <div style="float: left">
-                        <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
-                            <p:outputLabel value="Codigo" for="cod"/>
-                            <p:inputText disabled="true" id="cod" value="#{exibeOsController.servico.os}"/>
+                <p:panel style="width: 50%">
+                    <p:messages closable="true" id="messages"/>
+                    <p:toolbar class="toolbar">
+                        <p:toolbarGroup>
+                            <p:commandButton value="Voltar" icon="fa fa-search" action="/telas/servicos?faces-redirect=true" ajax="false" />
+                        </p:toolbarGroup>
+                        <p:toolbarGroup align="right">
+                            <p:commandButton value="Salvar" icon="fa fa-save" action="#{cadastroOSController.salvar()}" update="messages"/>
+                        </p:toolbarGroup>
+                    </p:toolbar>
 
-                            <p:outputLabel for="tempo" value="Tempo de Abertura"/>
-                            <p:inputText value="#{exibeOsController.servico.tempoAbertura}" id="tempo" readonly="true"/>
+                    <p:panelGrid columns="4" style="width: 100%; margin-bottom: 10px" columnClasses="columRight, columLeft, columRight,columLeft">
+                        <p:outputLabel for="descricao" value="Descrição" style="20px"/>
+                        <p:inputText id="descricao" value="#{cadastroOSController.os.descricao}" readonly="true"/>
 
-                            <p:outputLabel for="dataPedido" value="Data de Abertura"/>
-                            <p:inputText value="#{exibeOsController.servico.dtPedido}" id="dataPedido" readonly="true">
-                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
-                            </p:inputText>
+                        <p:spacer/>
+                        <p:spacer/>
 
-                            <p:outputLabel for="nome" value="Solicitante"/>
-                            <p:inputText value="#{exibeOsController.servico.nome}" id="nome" readonly="true"/>
+                        <p:outputLabel value="Codigo" for="cod"/>
+                        <p:inputText disabled="true" id="cod" value="#{cadastroOSController.os.codigo}"/>
+
+                        <p:outputLabel for="tempo" value="Tempo de Abertura"/>
+                        <p:inputText value="" id="tempo" readonly="true"/>
+
+                        <p:outputLabel for="dataPedido" value="Data de Abertura"/>
+                        <p:inputText value="#{exibeOsController.servico.dtPedido}" id="dataPedido" readonly="true">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                        </p:inputText>
+
+                        <p:outputLabel for="setor" value="Setor"/>
+                        <p:inputText value="#{cadastroOSController.setor}" id="setor" readonly="true"/>
+
+                        <p:outputLabel for="tipoOS" value="Tipo OS" />
+                        <p:selectOneMenu id="tipoOS" style="width: 200px" value="#{cadastroOSController.os.tipoOS}"
+                                         filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="Selecione"/>
+                            <f:selectItems value="#{cadastroOSController.listaTipos}" var="item"
+                                           itemValue="#{item.codigo}" itemLabel="#{item.descricao}"/>
+                            <p:ajax listener="#{cadastroOSController.atualizarMotivos()}" update="motivo" process="@this"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="localidade" value="Localidade"/>
+                        <p:inputText value="#{cadastroOSController.localidade}" id="localidade" readonly="true"/>
 
 
-                        </p:panelGrid>
-                    </div>
 
-                    <div style="float: right;">
-                        <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
-                            <p:outputLabel for="setor" value="Setor"/>
-                            <p:inputText value="#{exibeOsController.servico.setor}" id="setor" readonly="true"/>
+                        <p:outputLabel for="motivo" value="Motivo do Serviço" />
+                        <p:selectOneMenu id="motivo" style="width: 200px" value="#{cadastroOSController.os.motivo}"
+                                         filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="Selecione"/>
+                            <f:selectItems value="#{cadastroOSController.motivos}" var="item"
+                                           itemValue="#{item.codigo}" itemLabel="#{item.descricao}"/>
+                        </p:selectOneMenu>
 
-                            <p:outputLabel for="localidade" value="Localidade"/>
-                            <p:inputText value="#{exibeOsController.servico.localidade}" id="localidade" readonly="true"/>
+                        <p:outputLabel for="nome" value="Solicitante"/>
+                        <p:inputText value="#{cadastroOSController.os.solicitante}" id="nome" readonly="true"/>
+
+                    </p:panelGrid>
 
 
-                        </p:panelGrid>
-                    </div>
-
-                    <h:panelGrid style="clear: right; float: left">
-                        <p:outputLabel for="descricao" value="Descrição"/>
-                        <p:inputTextarea id="descricao" rows="4" cols="100" readonly="true" value="#{exibeOsController.servico.servico}"/>
+                    <h:panelGrid>
+                        <p:outputLabel for="observacao" value="Descrição"/>
+                        <p:textEditor id="observacao" height="100" value="#{cadastroOSController.os.observacao}"/>
                     </h:panelGrid>
 
-                    <p:commandButton value="ok" action="#{exibeOsController.fecharDialogo()}" />
+
                 </p:panel>
             </div>
         </h:form>
-    </h:body>
-</html>
+    </ui:define>
+
+</ui:composition>

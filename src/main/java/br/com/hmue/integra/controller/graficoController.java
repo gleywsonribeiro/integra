@@ -74,6 +74,7 @@ public class graficoController {
         model.addSeries(naoAvaliadas);
         model.setSeriesColors("006600, 990000");
         model.setStacked(true);
+        model.setBarWidth(30);
         return model;
     }
 
@@ -124,6 +125,7 @@ public class graficoController {
 
         model.addSeries(tempoPorTecnico);
         model.setSeriesColors("0059b3");
+        model.setBarWidth(30);
         
         return model;
     }

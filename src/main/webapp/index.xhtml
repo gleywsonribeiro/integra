@@ -44,16 +44,18 @@
             <p:poll interval="60" listener="#{osController.atualizaConsulta()}" update="board" />
         </h:form>
 
-        <p:panelGrid columns="2" rendered="#{loginController.gerente}">
-            <p:panel>
-                <p:chart type="bar" model="#{graficoController.graficoProducao}" style="height:400px; width: 800px" />
-            </p:panel>
+        <!--<p:panelGrid columns="1" rendered="" style="clear: both">-->
+        <!--<p:panel>-->
 
-            <p:panel>
-                <p:chart type="bar" model="#{graficoController.graficoProducaoTemporal}" style="height:400px; width: 800px"/>
-            </p:panel>
+        <!--</p:panel>-->
 
-        </p:panelGrid>
+        <p:panel style="clear: both">
+            <p:chart type="bar" model="#{graficoController.graficoProducao}" style="height:300px; margin:20px 0" responsive="true"/>
+            <p:separator/>
+            <p:chart type="bar" model="#{graficoController.graficoProducaoTemporal}" style="height:300px; margin:20px 0" responsive="true"/>
+        </p:panel>
+
+        <!--</p:panelGrid>-->
 
 
 

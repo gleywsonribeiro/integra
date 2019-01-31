@@ -86,5 +86,8 @@ public class EmissorRelatorioController {
         return file;
     }
 
+    public String editar() {
+        return "os/cadastro";
+    }
     
 }
